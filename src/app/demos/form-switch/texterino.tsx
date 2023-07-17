@@ -2,7 +2,7 @@ import cn from 'classnames';
 
 function Texterino() {
   return (
-    <div className="texterino">
+    <div className="container texterino">
       <h1>Form Switch Animation Demo</h1>
 
       <h2>What, Why, How?</h2>
@@ -40,6 +40,30 @@ function Texterino() {
       </p>
       <p>So let&apos;s dive in!</p>
 
+      <h2>Show me the code</h2>
+      <p>
+        I&apos;m still working on proper code embeddings, so far now I will be
+        using github links and codepen as source code materials, while tutorial
+        will be mostly about general explanation behind animations and tricks.
+      </p>
+      <p>
+        I will try to heavily comment my code (mainly styles) to compensate for
+        my lack of tutorial skills (which also can easily make it a lot worse,
+        but whateva).
+      </p>
+
+      <p>
+        <a
+          href="https://github.com/kainanaina/front-kek/blob/main/src/app/demos/form-switch/demo.tsx"
+          target="_blank"
+        >
+          demo.tsx
+        </a>
+      </p>
+      <p>
+        <StylesLink>styles.module.scss</StylesLink>
+      </p>
+
       <h2>Rough explanation of layout and switch animation</h2>
       <p>Here is the initial view breakdown:</p>
       <img src="https://i.imgur.com/CZTmz6L.png" alt="Initial view breakdown" />
@@ -65,6 +89,7 @@ function Texterino() {
         As for reverse animation, everything there works automatically when you
         are removing the class.
       </p>
+
       <h2>Switcher and clip-path</h2>
       <p>
         In the original <CodepenLink>codepen demo</CodepenLink>, switcher is
@@ -149,6 +174,12 @@ function Texterino() {
 }`}
         </HL>
       </p>
+      <p>
+        We&apos;ll also need to apply very similar clip-path values to main demo
+        container, to match the arrow shape size, since otherwise we&apos;ll end
+        up with white corners. Check <HL>.demoInner</HL> class{' '}
+        <StylesLink>here</StylesLink>.
+      </p>
     </div>
   );
 }
@@ -160,6 +191,17 @@ function HL({ children, code }: React.PropsWithChildren<{ code?: boolean }>) {
 function CodepenLink({ children }: React.PropsWithChildren) {
   return (
     <a href="https://codepen.io/suez/pen/RpNXOR" target="_blank">
+      {children}
+    </a>
+  );
+}
+
+function StylesLink({ children }: React.PropsWithChildren) {
+  return (
+    <a
+      href="https://github.com/kainanaina/front-kek/blob/main/src/app/demos/form-switch/styles.module.scss"
+      target="_blank"
+    >
       {children}
     </a>
   );

@@ -1,20 +1,20 @@
-.container {
+.container { // not critical for the demo, just setting boundries for it
   width: 800px;
   max-width: 100%;
 }
 
 .demo {
-  $demoRef: &;
-  --demo-height: 550px;
+  $demoRef: &; // saving reference in a variable is a good way to avoid issues if you'll decide to rename the main class after and forget to rename it in all places inside
   --switcher-width: 260px;
   --arrow-offset: 30px;
-  --btn-height: 36px;
   --anim-time: 1.2s;
   --transition-transform: transform var(--anim-time) ease-in-out;
   --transition-opacity: opacity 0s calc(var(--anim-time) / 2);
 
-  height: var(--demo-height);
-  filter: drop-shadow(0 0 10px rgba(0,0,0,0.3));
+  --btn-height: 36px;
+
+  height: 550px; // can be fluid also
+  filter: drop-shadow(0 0 10px rgba(0,0,0,0.3)); // it's basically a box-shadow, but can be applied to complex shapes like clip-path, unlike regular box-shadow
 
   button {
     display: block;
@@ -26,13 +26,13 @@
     cursor: pointer;
   }
 
-  @mixin switched {
+  @mixin switched { // I'm using mixins to apply rules when state class is active, used via "@include switched"
     #{$demoRef}._switched & {
       @content;
     }
   }
 
-  &Inner {
+  &Inner { // inner container is required to make drop-shadow work with clip-path (of nested element), as per https://css-tricks.com/using-box-shadows-and-clip-path-together/ 
     --demoX1: 0;
     --demoX2: calc(100% - var(--arrow-offset));
     --demoX3: 100%;
@@ -46,6 +46,7 @@
     background: #fff;
     transition: clip-path var(--anim-time) ease-in-out;
     will-change: clip-path;
+    // clip the main container to match the arrow shape, otherwise there will be white corners
     clip-path: polygon(var(--demoX1) 0, var(--demoX2) 0, var(--demoX3) 50%, var(--demoX4) 100%, var(--demoX5) 100%, var(--demoX6) 50%);
 
     @include switched {
@@ -58,7 +59,7 @@
     }
   }
 
-  &Forms {
+  &Forms { // this container nests both of our forms and moves during animation from side to side
     height: 100%;
     transition: var(--transition-transform);
     will-change: transform;
@@ -68,7 +69,7 @@
     }
   }
 
-  &Form {
+  &Form { // specific form container that swaps opacity and pointer-events during animation for active/inactive forms
     position: absolute;
     inset: 0;
     transition: var(--transition-opacity);
@@ -90,13 +91,14 @@
       }
     }
 
-    &Content {
+    &Content { // nested wrapper for form content that forces it to be centered with width of the switcher
       width: var(--switcher-width);
       margin: 0 auto;
     }
   }
 
   &Switcher {
+    // switcher is essentially a top-level overlay, that gets cropped via clip-path to make it look like an arrow with some content inside
     --x1: calc(100% - var(--switcher-width));
     --x2: calc(100% - var(--arrow-offset));
     --x3: 100%;
@@ -118,16 +120,6 @@
     transition: clip-path var(--anim-time) ease-in-out;
     will-change: clip-path;
 
-    &:before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.6);
-    }
-
     @include switched {
       --x1: var(--arrow-offset);
       --x2: var(--switcher-width);
@@ -137,7 +129,20 @@
       --x6: 0;
     }
 
+    &:before { // overlay to make image background darker, which improves readability of the text
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+    }
+
     &Inner {
+      // I'm using this sub-container with full-width to allow animating switcher content position with transforms, instead of left/right, because of performance difference
+      // but transforms got severe limitation - relative % values are tied to element's own width/height, not parent's, so that's why we need this sub-container
+      // thanks to calc, we can shift it all the way to the left minus switcher width, which will end up an equivalent of animating from left: calc(100% - var(--switcher-width)) to left: 0
       height: 100%;
       transition: var(--transition-transform);
       will-change: transform;
@@ -148,6 +153,7 @@
     }
 
     &Content {
+      // our content is always positioned in the same place on right, we are just moving its parent instead, as explained above
       overflow: hidden;
       position: absolute;
       right: 0;
@@ -177,6 +183,7 @@
         flex-shrink: 0;
         text-align: center;
 
+        // shift text to better match shape of the arrow
         &:first-child {
           padding-left: calc(var(--arrow-offset) + 10px);
           padding-right: calc(var(--arrow-offset) - 10px);
@@ -198,6 +205,7 @@
     }
 
     &Btn {
+      // I will be covering button with animated border in a separate tutorial, stay tuned :)
       --btn-width: 100px;
       --border-box-width: calc(var(--btn-width) * 1.45);
       --border-box-offset: calc(var(--border-box-width) / -2);

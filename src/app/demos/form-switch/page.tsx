@@ -6,6 +6,7 @@ const FormSwitchPage = () => {
   return (
     <>
       <DemoContainer>
+        <p>Click on SIGN UP button to trigger animation</p>
         <Demo />
       </DemoContainer>
       <Texterino />

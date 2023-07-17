@@ -1,3 +1,33 @@
+.layout {
+  padding-top: var(--header-height);
+
+  &Header {
+    z-index: 999;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: var(--header-height);
+    background: #fff;
+    box-shadow: 5px 3px 4px rgba(0, 0, 0, 0.2);
+
+    &Content {
+      display: flex;
+      align-items: center;
+      height: 100%;
+      gap: 20px;
+    }
+  }
+}
+
+.logoSvg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
 @keyframes rotateBg {
   to {
     transform: translate(-50%, -50%) rotate(360deg);
@@ -5,17 +35,18 @@
 }
 
 .logo {
-  width: 167px;
-  height: 22px;
+  overflow: hidden;
+  width: 268px;
+  height: 36px;
   clip-path: url(#logo);
 
   div {
     position: absolute;
     left: 50%;
     top: 50%;
-    width: 100%;
+    width: 120%;
     padding-bottom: 100%;
-    background: conic-gradient(red, orange, yellow, green, blue);
+    background: conic-gradient(#E966A0, #00DFA2, #2B2730, #6554AF, #FF0060, #9575DE);
     transform: translate(-50%, -50%) rotate(0deg);
     animation: rotateBg 5s linear infinite;
   }

@@ -1,4 +1,6 @@
-import { Open_Sans } from 'next/font/google';
+import { Open_Sans, Oswald } from 'next/font/google';
+import Link from 'next/link';
+import cn from 'classnames';
 import s from './styles.module.scss';
 import 'src/styles/index.scss';
 
@@ -14,6 +16,13 @@ const openSans = Open_Sans({
   display: 'swap',
 });
 
+const oswald = Oswald({
+  weight: ['700'],
+  style: ['normal'],
+  subsets: ['latin'],
+  display: 'swap',
+});
+
 export default function RootLayout({
   children,
 }: {
@@ -23,20 +32,44 @@ export default function RootLayout({
     <html lang="en">
       <head></head>
       <body className={openSans.className}>
-        <svg>
-          <defs>
-            <clipPath id="logo">
-              <text x="0" y="22" fontWeight="bold" fontSize="30px">
-                FRONT-KEK
-              </text>
-            </clipPath>
-          </defs>
-        </svg>
-        <div className={s.logo}>
-          <div />
+        <div className={s.layout}>
+          <div className={s.layoutHeader}>
+            <div className={cn(s.layoutHeaderContent, 'container')}>
+              <Link href="/">
+                <Logo />
+              </Link>
+              <Link href="/demos">Demos</Link>
+              <Link href="/about">About Me</Link>
+            </div>
+          </div>
+          <div className={s.layoutContent}>{children}</div>
         </div>
-        {children}
       </body>
     </html>
+  );
+}
+
+function Logo() {
+  return (
+    <>
+      <svg className={s.logoSvg}>
+        <defs>
+          <clipPath id="logo">
+            <text
+              x="0"
+              y="34"
+              fontWeight="bold"
+              fontSize="40px"
+              className={oswald.className}
+            >
+              FRONT-KEK.COM
+            </text>
+          </clipPath>
+        </defs>
+      </svg>
+      <div className={s.logo}>
+        <div />
+      </div>
+    </>
   );
 }

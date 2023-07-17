@@ -18,6 +18,10 @@ body {
   line-height: 1.5;
 }
 
+:root {
+  --header-height: 64px;
+}
+
 input, button {
   border: none;
   outline: none;
@@ -25,12 +29,16 @@ input, button {
   font-family: inherit;
 }
 
-.texterino {
-  --spacing: 12px;
-
+.container {
   width: 1280px;
   max-width: 100%;
   padding: 0 40px;
+  margin: 0 auto;
+}
+
+.texterino {
+  --spacing: 12px;
+
   margin: 40px auto;
 
   > *:not(:last-child) {
