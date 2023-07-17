@@ -1,0 +1,295 @@
+.container {
+  width: 800px;
+  max-width: 100%;
+}
+
+.demo {
+  $demoRef: &;
+  --demo-height: 550px;
+  --switcher-width: 260px;
+  --arrow-offset: 30px;
+  --btn-height: 36px;
+  --anim-time: 1.2s;
+  --transition-transform: transform var(--anim-time) ease-in-out;
+  --transition-opacity: opacity 0s calc(var(--anim-time) / 2);
+
+  height: var(--demo-height);
+  filter: drop-shadow(0 0 10px rgba(0,0,0,0.3));
+
+  button {
+    display: block;
+    margin: 0 auto;
+    height: var(--btn-height);
+    border-radius: 30px;
+    color: #fff;
+    font-size: 15px;
+    cursor: pointer;
+  }
+
+  @mixin switched {
+    #{$demoRef}._switched & {
+      @content;
+    }
+  }
+
+  &Inner {
+    --demoX1: 0;
+    --demoX2: calc(100% - var(--arrow-offset));
+    --demoX3: 100%;
+    --demoX4: calc(100% - var(--arrow-offset));
+    --demoX5: 0;
+    --demoX6: 0;
+
+    overflow: hidden;
+    height: 100%;
+    padding-right: var(--switcher-width);
+    background: #fff;
+    transition: clip-path var(--anim-time) ease-in-out;
+    will-change: clip-path;
+    clip-path: polygon(var(--demoX1) 0, var(--demoX2) 0, var(--demoX3) 50%, var(--demoX4) 100%, var(--demoX5) 100%, var(--demoX6) 50%);
+
+    @include switched {
+      --demoX1: var(--arrow-offset);
+      --demoX2: 100%;
+      --demoX3: 100%;
+      --demoX4: 100%;
+      --demoX5: var(--arrow-offset);
+      --demoX6: 0;
+    }
+  }
+
+  &Forms {
+    height: 100%;
+    transition: var(--transition-transform);
+    will-change: transform;
+
+    @include switched {
+      transform: translateX(var(--switcher-width));
+    }
+  }
+
+  &Form {
+    position: absolute;
+    inset: 0;
+    transition: var(--transition-opacity);
+
+    &:first-child {
+      @include switched {
+        opacity: 0;
+        pointer-events: none;
+      }
+    }
+
+    &:last-child {
+      opacity: 0;
+      pointer-events: none;
+
+      @include switched {
+        opacity: 1;
+        pointer-events: auto;
+      }
+    }
+
+    &Content {
+      width: var(--switcher-width);
+      margin: 0 auto;
+    }
+  }
+
+  &Switcher {
+    --x1: calc(100% - var(--switcher-width));
+    --x2: calc(100% - var(--arrow-offset));
+    --x3: 100%;
+    --x4: calc(100% - var(--arrow-offset));
+    --x5: calc(100% - var(--switcher-width));
+    --x6: calc(100% - var(--switcher-width) + var(--arrow-offset));
+
+    z-index: 2;
+    overflow: hidden;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/142996/sections-3.jpg');
+    background-size: cover;
+    background-position: center center;
+    clip-path: polygon(var(--x1) 0, var(--x2) 0, var(--x3) 50%, var(--x4) 100%, var(--x5) 100%, var(--x6) 50%);
+    transition: clip-path var(--anim-time) ease-in-out;
+    will-change: clip-path;
+
+    &:before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+    }
+
+    @include switched {
+      --x1: var(--arrow-offset);
+      --x2: var(--switcher-width);
+      --x3: calc(var(--switcher-width) - var(--arrow-offset));
+      --x4: var(--switcher-width);
+      --x5: var(--arrow-offset);
+      --x6: 0;
+    }
+
+    &Inner {
+      height: 100%;
+      transition: var(--transition-transform);
+      will-change: transform;
+
+      @include switched {
+        transform: translateX(calc((100% - var(--switcher-width)) * -1));
+      }
+    }
+
+    &Content {
+      overflow: hidden;
+      position: absolute;
+      right: 0;
+      top: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      column-gap: 20px;
+      width: var(--switcher-width);
+      height: 100%;
+    }
+
+    &Text {
+      display: flex;
+      flex-wrap: nowrap;
+      height: 140px;
+      color: #fff;
+      transition: var(--transition-transform);
+      will-change: transform;
+
+      @include switched {
+        transform: translateX(-100%);
+      }
+
+      > div {
+        width: 100%;
+        flex-shrink: 0;
+        text-align: center;
+
+        &:first-child {
+          padding-left: calc(var(--arrow-offset) + 10px);
+          padding-right: calc(var(--arrow-offset) - 10px);
+        }
+
+        &:last-child {
+          padding-left: calc(var(--arrow-offset) - 10px);
+          padding-right: calc(var(--arrow-offset) + 10px);
+        }
+
+        h3 {
+          margin-bottom: 20px;
+        }
+
+        p {
+          font-size: 14px;
+        }
+      }
+    }
+
+    &Btn {
+      --btn-width: 100px;
+      --border-box-width: calc(var(--btn-width) * 1.45);
+      --border-box-offset: calc(var(--border-box-width) / -2);
+
+      overflow: hidden;
+      width: var(--btn-width);
+
+      @keyframes rotate {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      &:before {
+        content: '';
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: var(--border-box-width);
+        height: var(--border-box-width);
+        margin-left: var(--border-box-offset);
+        margin-top: var(--border-box-offset);
+        background: conic-gradient(from 270deg, #ff4800 10%, #dfd902 35%, #20dc68, #0092f4, #da54d8 72% 75%, #ff4800 95%);
+        animation: rotate 2s linear infinite;
+      }
+
+      &Inner {
+        position: absolute;
+        inset: 3px;
+        background: #fff;
+        border-radius: inherit;
+        color: #333;
+        font-weight: 500;
+
+        span {
+          display: block;
+          height: 100%;
+          line-height: calc(var(--btn-height) - 6px);
+          text-align: center;
+          text-transform: uppercase;
+          transition: var(--transition-transform);
+          will-change: transform;
+
+          @include switched {
+            transform: translateY(-100%);
+          }
+        }
+      }
+    }
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 50px 0;
+  row-gap: 20px;
+  text-align: center;
+  transition: transform var(--anim-time, 1.2s);
+  will-change: transform;
+
+  &Heading {
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  &Field {
+    width: 100%;
+
+    &Label {
+      font-size: 12px;
+      color: #cfcfcf;
+      text-transform: uppercase;
+    }
+
+    &Input {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      margin-top: 5px;
+      padding-bottom: 5px;
+      font-size: 16px;
+      border-bottom: 1px solid rgba(0,0,0,0.4);
+      text-align: center;
+    }
+  }
+
+  &Submit {
+    width: 100%;
+    background: #d4af7a;
+  }
+}

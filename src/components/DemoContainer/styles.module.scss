@@ -1,0 +1,16 @@
+.demoContainer {
+  --vert-gap: 40px;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1600px;
+  max-width: 100%;
+  height: calc(100vh - calc(var(--vert-gap) * 2));
+  padding: 20px;
+  margin: var(--vert-gap) auto;
+  background: #ededed;
+  border: 1px solid #ccc;
+}
