@@ -4,7 +4,7 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 
 export default function Disclaimers() {
   return (
-    <Accordion>
+    <Accordion sx={{ backgroundColor: 'var(--color-gray)' }}>
       <AccordionSummary>
         <h2>Disclaimers</h2>
       </AccordionSummary>

@@ -53,6 +53,11 @@ function Texterino() {
         I will try to heavily comment my code (mainly styles) to compensate for
         my lack of tutorial skills.
       </p>
+      <p>
+        Also, if reading SCSS code with parent references nesting is too much
+        trouble, you can always check compiled CSS in codepen to see the final
+        classes and styles.
+      </p>
 
       <p>
         <a
@@ -71,15 +76,9 @@ function Texterino() {
         title="Demo Codepen Embed"
         src="https://codepen.io/suez/embed/XWyBpre"
         loading="lazy"
-        allowTransparency
         allowFullScreen
       >
-        See the Pen{' '}
-        <a href="https://codepen.io/suez/pen/XWyBpre">
-          Form Switch Animation (2023)
-        </a>{' '}
-        by Nikolay Talanov (<a href="https://codepen.io/suez">@suez</a>) on{' '}
-        <a href="https://codepen.io">CodePen</a>.
+        See the Pen
       </iframe>
 
       <h2>Rough explanation of layout and switch animation</h2>

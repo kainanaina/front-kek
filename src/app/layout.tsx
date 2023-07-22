@@ -1,11 +1,14 @@
 import { Roboto, Oswald } from 'next/font/google';
 import Link from 'next/link';
+import Script from 'next/script';
 import cn from 'classnames';
 import s from './styles.module.scss';
 import 'src/styles/index.scss';
 
+const GA_ID = 'G-0TX0P0DGB7';
+
 export const metadata = {
-  title: 'Front-Kek - Stupid frontend stuff made by a professional idiot',
+  title: 'Front-End Demos and Tutorials | FRONT-KEK',
   description: 'lose all hope ye who enter here',
 };
 
@@ -31,6 +34,23 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head></head>
+      {GA_ID && (
+        <>
+          <Script
+            src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+            strategy="afterInteractive"
+          />
+          <Script id="google-analytics" strategy="afterInteractive">
+            {`
+              globalThis.dataLayer = globalThis.dataLayer || [];
+              function gtag(){globalThis.dataLayer.push(arguments);}
+              gtag('js', new Date());
+
+              gtag('config', '${GA_ID}');
+            `}
+          </Script>
+        </>
+      )}
       <body className={openSans.className}>
         <div className={s.layout}>
           <div className={s.layoutHeader}>

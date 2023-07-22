@@ -1,4 +1,4 @@
-import s from './styles.module.scss';
+import './styles.scss';
 
 enum Direction {
   Left = 'left',
@@ -44,7 +44,7 @@ export default function SpiralBlocks({
 
   return (
     <div
-      className={s.start}
+      className="demo"
       style={
         {
           '--box-size': `${boxSize}px`,
@@ -58,14 +58,14 @@ export default function SpiralBlocks({
         return (
           <div
             key={i}
-            className={s.block}
+            className="demo__block"
             style={{
               left: `${x * 100}%`,
               top: `${y * 100}%`,
             }}
           >
             <div
-              className={s.blockInner}
+              className="demo__block-inner"
               style={{
                 transform: `rotateY(${direction[0] * 90}deg) rotateX(${
                   direction[1] * -90
