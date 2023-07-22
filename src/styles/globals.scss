@@ -16,6 +16,7 @@ body {
   background: #fff;
   color: #333;
   line-height: 1.5;
+  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
 }
 
 :root {
@@ -34,6 +35,10 @@ input, button {
   max-width: 100%;
   padding: 0 40px;
   margin: 0 auto;
+
+  @media (max-width: 480px) {
+    padding: 0 5%;
+  }
 }
 
 .texterino {

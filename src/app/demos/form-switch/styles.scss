@@ -1,4 +1,4 @@
-.container { // not critical for the demo, just setting boundries for it
+.local-container { // not critical for the demo, just setting boundries for it
   width: 800px;
   max-width: 100%;
 }
@@ -20,19 +20,18 @@
     display: block;
     margin: 0 auto;
     height: var(--btn-height);
-    border-radius: 30px;
     color: #fff;
     font-size: 15px;
     cursor: pointer;
   }
 
   @mixin switched { // I'm using mixins to apply rules when state class is active, used via "@include switched"
-    #{$demoRef}._switched & {
+    #{$demoRef}.s--switched & {
       @content;
     }
   }
 
-  &Inner { // inner container is required to make drop-shadow work with clip-path (of nested element), as per https://css-tricks.com/using-box-shadows-and-clip-path-together/ 
+  &__inner { // inner container is required to make drop-shadow work with clip-path (of nested element), as per https://css-tricks.com/using-box-shadows-and-clip-path-together/ 
     --demoX1: 0;
     --demoX2: calc(100% - var(--arrow-offset));
     --demoX3: 100%;
@@ -59,7 +58,7 @@
     }
   }
 
-  &Forms { // this container nests both of our forms and moves during animation from side to side
+  &__forms { // this container nests both of our forms and moves during animation from side to side
     height: 100%;
     transition: var(--transition-transform);
     will-change: transform;
@@ -69,7 +68,7 @@
     }
   }
 
-  &Form { // specific form container that swaps opacity and pointer-events during animation for active/inactive forms
+  &__form { // specific form container that swaps opacity and pointer-events during animation for active/inactive forms
     position: absolute;
     inset: 0;
     transition: var(--transition-opacity);
@@ -91,13 +90,13 @@
       }
     }
 
-    &Content { // nested wrapper for form content that forces it to be centered with width of the switcher
+    &-content { // nested wrapper for form content that forces it to be centered with width of the switcher
       width: var(--switcher-width);
       margin: 0 auto;
     }
   }
 
-  &Switcher {
+  &__switcher {
     // switcher is essentially a top-level overlay, that gets cropped via clip-path to make it look like an arrow with some content inside
     --x1: calc(100% - var(--switcher-width));
     --x2: calc(100% - var(--arrow-offset));
@@ -139,7 +138,7 @@
       background: rgba(0,0,0,0.6);
     }
 
-    &Inner {
+    &-inner {
       // I'm using this sub-container with full-width to allow animating switcher content position with transforms, instead of left/right, because of performance difference
       // but transforms got severe limitation - relative % values are tied to element's own width/height, not parent's, so that's why we need this sub-container
       // thanks to calc, we can shift it all the way to the left minus switcher width, which will end up an equivalent of animating from left: calc(100% - var(--switcher-width)) to left: 0
@@ -152,7 +151,7 @@
       }
     }
 
-    &Content {
+    &-content {
       // our content is always positioned in the same place on right, we are just moving its parent instead, as explained above
       overflow: hidden;
       position: absolute;
@@ -166,7 +165,7 @@
       height: 100%;
     }
 
-    &Text {
+    &-text {
       display: flex;
       flex-wrap: nowrap;
       height: 140px;
@@ -204,46 +203,56 @@
       }
     }
 
-    &Btn {
+    &-btn {
       // I will be covering button with animated border in a separate tutorial, stay tuned :)
       --btn-width: 100px;
-      --border-box-width: calc(var(--btn-width) * 1.45);
-      --border-box-offset: calc(var(--border-box-width) / -2);
+      --border-width: 3px;
 
       overflow: hidden;
       width: var(--btn-width);
 
-      @keyframes rotate {
+      @keyframes rotateBtnBg {
         to {
-          transform: rotate(360deg);
+          transform: translate(-50%, -50%) rotate(360deg);
         }
       }
 
-      &:before {
-        content: '';
+      &-bg {
+        z-index: 2;
         position: absolute;
-        left: 50%;
-        top: 50%;
-        width: var(--border-box-width);
-        height: var(--border-box-width);
-        margin-left: var(--border-box-offset);
-        margin-top: var(--border-box-offset);
-        background: conic-gradient(from 270deg, #ff4800 10%, #dfd902 35%, #20dc68, #0092f4, #da54d8 72% 75%, #ff4800 95%);
-        animation: rotate 2s linear infinite;
+        inset: 0;
+        clip-path: polygon(
+          0 0, 100% 0, 100% 100%, 0 100%, 0 0, // first lap
+          var(--border-width) var(--border-width), // init position for second lap
+          var(--border-width) calc(100% - var(--border-width)), // go down
+          calc(100% - var(--border-width)) calc(100% - var(--border-width)), // to the right
+          calc(100% - var(--border-width)) var(--border-width), // up
+          var(--border-width) var(--border-width) // finish lap
+        );
+
+        &:before {
+          content: '';
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          width: 150%;
+          padding-bottom: 150%;
+          transform: translate(-50%, -50%);
+          background: conic-gradient(from 270deg, #ff4800 10%, #dfd902 35%, #20dc68, #0092f4, #da54d8 72% 75%, #ff4800 95%);
+          animation: rotateBtnBg 2s linear infinite;
+        }
       }
 
-      &Inner {
+      &-inner {
+        z-index: 1;
         position: absolute;
-        inset: 3px;
-        background: #fff;
-        border-radius: inherit;
-        color: #333;
+        inset: 0;
         font-weight: 500;
 
         span {
           display: block;
           height: 100%;
-          line-height: calc(var(--btn-height) - 6px);
+          line-height: var(--btn-height);
           text-align: center;
           text-transform: uppercase;
           transition: var(--transition-transform);
@@ -270,21 +279,21 @@
   transition: transform var(--anim-time, 1.2s);
   will-change: transform;
 
-  &Heading {
+  &__heading {
     font-size: 20px;
     font-weight: bold;
   }
 
-  &Field {
+  &__field {
     width: 100%;
 
-    &Label {
+    &-label {
       font-size: 12px;
       color: #cfcfcf;
       text-transform: uppercase;
     }
 
-    &Input {
+    &-input {
       display: block;
       width: 100%;
       max-width: 100%;
@@ -296,7 +305,7 @@
     }
   }
 
-  &Submit {
+  &__submit {
     width: 100%;
     background: #d4af7a;
   }

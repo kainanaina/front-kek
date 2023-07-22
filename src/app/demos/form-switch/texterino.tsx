@@ -1,8 +1,11 @@
 import cn from 'classnames';
+import { Disclaimers } from 'src/components';
+import { TWITTER } from 'src/constants';
 
 function Texterino() {
   return (
     <div className="container texterino">
+      <Disclaimers />
       <h1>Form Switch Animation Demo</h1>
 
       <h2>What, Why, How?</h2>
@@ -42,14 +45,13 @@ function Texterino() {
 
       <h2>Show me the code</h2>
       <p>
-        I&apos;m still working on proper code embeddings, so far now I will be
+        I&apos;m still working on proper code embeddings, so for now I will be
         using github links and codepen as source code materials, while tutorial
         will be mostly about general explanation behind animations and tricks.
       </p>
       <p>
         I will try to heavily comment my code (mainly styles) to compensate for
-        my lack of tutorial skills (which also can easily make it a lot worse,
-        but whateva).
+        my lack of tutorial skills.
       </p>
 
       <p>
@@ -64,12 +66,28 @@ function Texterino() {
         <StylesLink>styles.module.scss</StylesLink>
       </p>
 
+      <iframe
+        style={{ width: '100%', height: 600 }}
+        title="Demo Codepen Embed"
+        src="https://codepen.io/suez/embed/XWyBpre"
+        loading="lazy"
+        allowTransparency
+        allowFullScreen
+      >
+        See the Pen{' '}
+        <a href="https://codepen.io/suez/pen/XWyBpre">
+          Form Switch Animation (2023)
+        </a>{' '}
+        by Nikolay Talanov (<a href="https://codepen.io/suez">@suez</a>) on{' '}
+        <a href="https://codepen.io">CodePen</a>.
+      </iframe>
+
       <h2>Rough explanation of layout and switch animation</h2>
       <p>Here is the initial view breakdown:</p>
       <img src="https://i.imgur.com/CZTmz6L.png" alt="Initial view breakdown" />
       <p>
         Once <HL>SIGN UP</HL> button is pressed, the state changes and{' '}
-        <HL>._switched</HL> class is appended to demo element, which triggers
+        <HL>s--switched</HL> class is appended to demo element, which triggers
         following css transitions:
       </p>
       <ol>
@@ -177,9 +195,46 @@ function Texterino() {
       <p>
         We&apos;ll also need to apply very similar clip-path values to main demo
         container, to match the arrow shape size, since otherwise we&apos;ll end
-        up with white corners. Check <HL>.demoInner</HL> class{' '}
+        up with white corners. Check <HL>demo__inner</HL> class{' '}
         <StylesLink>here</StylesLink>.
       </p>
+      <p>
+        In order to understand how switcher text content is positioned and moved
+        during animation, please check code comments for{' '}
+        <HL>demo__switcher-inner</HL> and <HL>demo__switcher-content</HL>{' '}
+        classes.
+      </p>
+      <p>
+        Once switcher code is ready, the core animation is pretty much done.
+      </p>
+
+      <h2>Additional notes:</h2>
+      <ul>
+        <li>
+          Button with transparent background and animated border will be covered
+          in a separate tutorial, stay tuned!
+        </li>
+        <li>
+          Originally when I started playing with clip-path, I wanted to make a
+          skewed shape, which lead me to some overcomplicated code where I was
+          using brand-new css trigonometric functions to compute angle with{' '}
+          <HL>atan2</HL> in order to determine skew angle for content beside the
+          shape. And then it hit me that applying skew globally to the whole
+          component was accomplishing the same, so I dropped that stupid idea.
+          It is a good example of how everything becomes a nail when you are a
+          hammer, when you are stuck in a tunnel-vision tied to some specific
+          idea.
+        </li>
+        <li>
+          If any Tailwind folks are checking this, can you please ping me on{' '}
+          <a href={TWITTER} target="_blank">
+            twitter
+          </a>{' '}
+          and show me how similar clip-path animation could be done with
+          tailwind? Or it&apos;s just{' '}
+          <HL>create custom class that does all the usual stuff</HL>?
+        </li>
+      </ul>
     </div>
   );
 }

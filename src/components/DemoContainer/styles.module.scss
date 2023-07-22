@@ -1,5 +1,5 @@
 .demoContainer {
-  --vert-gap: 40px;
+  --vert-gap: 20px;
 
   overflow-y: auto;
   overflow-x: hidden;
@@ -11,6 +11,7 @@
   width: 1600px;
   max-width: 100%;
   height: calc(100vh - var(--header-height) - calc(var(--vert-gap) * 2));
+  min-height: 640px;
   padding: 20px;
   margin: var(--vert-gap) auto;
   background: #ededed;

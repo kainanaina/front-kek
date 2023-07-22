@@ -1,4 +1,4 @@
-import { Open_Sans, Oswald } from 'next/font/google';
+import { Roboto, Oswald } from 'next/font/google';
 import Link from 'next/link';
 import cn from 'classnames';
 import s from './styles.module.scss';
@@ -9,8 +9,8 @@ export const metadata = {
   description: 'lose all hope ye who enter here',
 };
 
-const openSans = Open_Sans({
-  weight: ['400', '500', '700'],
+const openSans = Roboto({
+  weight: ['300', '400', '500', '700'],
   style: ['normal', 'italic'],
   subsets: ['latin'],
   display: 'swap',

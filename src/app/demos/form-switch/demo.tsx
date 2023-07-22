@@ -1,17 +1,17 @@
 'use client';
 import { useState } from 'react';
 import cn from 'classnames';
-import s from './styles.module.scss';
+import './styles.scss';
 
 export default function Demo() {
   const [switched, setSwitched] = useState(false);
   return (
-    <div className={s.container}>
-      <div className={cn(s.demo, { [s._switched]: switched })}>
-        <div className={s.demoInner}>
-          <div className={s.demoForms}>
-            <div className={s.demoForm}>
-              <div className={s.demoFormContent}>
+    <div className="local-container">
+      <div className={cn('demo', { 's--switched': switched })}>
+        <div className="demo__inner">
+          <div className="demo__forms">
+            <div className="demo__form">
+              <div className="demo__form-content">
                 <FakeForm
                   heading="Welcome back"
                   fields={['email', 'password']}
@@ -19,8 +19,8 @@ export default function Demo() {
                 />
               </div>
             </div>
-            <div className={s.demoForm}>
-              <div className={s.demoFormContent}>
+            <div className="demo__form">
+              <div className="demo__form-content">
                 <FakeForm
                   heading="Time to feel like home"
                   fields={['name', 'email', 'password']}
@@ -29,10 +29,10 @@ export default function Demo() {
               </div>
             </div>
           </div>
-          <div className={s.demoSwitcher}>
-            <div className={s.demoSwitcherInner}>
-              <div className={s.demoSwitcherContent}>
-                <div className={s.demoSwitcherText}>
+          <div className="demo__switcher">
+            <div className="demo__switcher-inner">
+              <div className="demo__switcher-content">
+                <div className="demo__switcher-text">
                   <div>
                     <h3>New here?</h3>
                     <p>
@@ -48,10 +48,11 @@ export default function Demo() {
                   </div>
                 </div>
                 <button
-                  className={s.demoSwitcherBtn}
+                  className="demo__switcher-btn"
                   onClick={() => setSwitched(!switched)}
                 >
-                  <span className={s.demoSwitcherBtnInner}>
+                  <span className="demo__switcher-btn-bg" />
+                  <span className="demo__switcher-btn-inner">
                     <span>Sign Up</span>
                     <span>Sign In</span>
                   </span>
@@ -73,15 +74,15 @@ interface FakeFormProps {
 
 function FakeForm({ heading, fields, submitLabel }: FakeFormProps) {
   return (
-    <form className={s.form} onSubmit={(e) => e.preventDefault()}>
-      <div className={s.formHeading}>{heading}</div>
+    <form className="form" onSubmit={(e) => e.preventDefault()}>
+      <div className="form__heading">{heading}</div>
       {fields.map((field) => (
-        <label className={s.formField} key={field}>
-          <span className={s.formFieldLabel}>{field}</span>
-          <input className={s.formFieldInput} type={field} />
+        <label className="form__field" key={field}>
+          <span className="form__field-label">{field}</span>
+          <input className="form__field-input" type={field} />
         </label>
       ))}
-      <button type="submit" className={s.formSubmit}>
+      <button type="submit" className="form__submit">
         {submitLabel}
       </button>
     </form>
