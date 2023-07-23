@@ -1,4 +1,7 @@
 import { CODEPEN_PROFILE, LINKEDIN_PROFILE, TWITTER } from 'src/constants';
+import { generateMetadata } from 'src/utils';
+
+export const metadata = generateMetadata({ title: 'About Me' });
 
 export default function AboutMePage() {
   return (
