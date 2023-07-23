@@ -1,4 +1,4 @@
-export const GITHUB_REPO = 'https://github.com/kainanaina/front-kek/tree/main/';
+export const GITHUB_REPO = 'https://github.com/kainanaina/front-kek';
 
 export const TWITTER = 'https://twitter.com/NikolayTalanov';
 

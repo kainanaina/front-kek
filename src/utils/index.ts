@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import { GITHUB_REPO } from 'src/constants';
 
-export const getGithubUrl = (path: string) => `${GITHUB_REPO}${path}`;
+export const getGithubUrl = (path: string) => `${GITHUB_REPO}/tree/main${path}`;
 
 const titleSuffix = ' | FRONT-KEK';
 const defaultTitle = `Front-End Demos and Tutorials${titleSuffix}`;

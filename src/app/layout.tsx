@@ -2,9 +2,12 @@ import { Roboto, Oswald } from 'next/font/google';
 import Link from 'next/link';
 import Script from 'next/script';
 import cn from 'classnames';
-import { IconBrandTwitterFilled } from '@tabler/icons-react';
+import {
+  IconBrandTwitterFilled,
+  IconBrandGithubFilled,
+} from '@tabler/icons-react';
 import { generateMetadata } from 'src/utils';
-import { TWITTER } from 'src/constants';
+import { GITHUB_REPO, TWITTER } from 'src/constants';
 import s from './styles.module.scss';
 import 'src/styles/index.scss';
 
@@ -63,6 +66,9 @@ export default function RootLayout({
                 <Link href="/about-me">About Me</Link>
               </div>
               <div className={s.layoutHeaderSide}>
+                <a href={GITHUB_REPO} target="_blank">
+                  <IconBrandGithubFilled />
+                </a>
                 <a
                   href={TWITTER}
                   target="_blank"
