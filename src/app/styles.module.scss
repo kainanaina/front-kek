@@ -12,9 +12,26 @@
     box-shadow: 5px 3px 4px rgba(0, 0, 0, 0.2);
 
     &Content {
+      overflow-x: auto;
+      overflow-y: hidden;
       display: flex;
+      justify-content: space-between;
       align-items: center;
       height: 100%;
+      gap: 20px;
+
+      > * {
+        flex-shrink: 0;
+      }
+
+      a {
+        display: flex;
+      }
+    }
+
+    &Side {
+      display: flex;
+      align-items: center;
       gap: 20px;
     }
   }

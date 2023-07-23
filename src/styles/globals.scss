@@ -21,8 +21,15 @@ body {
 
 :root {
   --header-height: 64px;
+  --container-width: 1200px;
+  --container-pad-x: 40px;
 
   --color-gray: #ededed;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
 }
 
 input, button {
@@ -33,9 +40,9 @@ input, button {
 }
 
 .container {
-  width: 1280px;
+  width: calc(var(--container-width) + (var(--container-pad-x) * 2));
   max-width: 100%;
-  padding: 0 40px;
+  padding: 0 var(--container-pad-x);
   margin: 0 auto;
 
   @media (max-width: 480px) {
@@ -50,6 +57,11 @@ input, button {
 
   > *:not(:last-child) {
     margin-bottom: var(--spacing);
+  }
+
+  a {
+    color: red;
+    text-decoration: underline;
   }
 
   li {
@@ -70,5 +82,34 @@ input, button {
     &.code {
       white-space: pre;
     }
+  }
+}
+
+.animated-border {
+  // allows you to override it with higher level variable
+  --bw: var(--border-width, 3px);
+
+  z-index: 2;
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(
+    0 0, 100% 0, 100% 100%, 0 100%, 0 0, // first lap
+    var(--bw) var(--bw), // init position for second lap
+    var(--bw) calc(100% - var(--bw)), // go down
+    calc(100% - var(--bw)) calc(100% - var(--bw)), // to the right
+    calc(100% - var(--bw)) var(--bw), // up
+    var(--bw) var(--bw) // finish lap
+  );
+
+  &:before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 150%;
+    padding-bottom: 150%;
+    transform: translate(-50%, -50%);
+    background: conic-gradient(from 270deg, #ff4800 10%, #dfd902 35%, #20dc68, #0092f4, #da54d8 72% 75%, #ff4800 95%);
+    animation: rotateBtnBg 2s linear infinite;
   }
 }

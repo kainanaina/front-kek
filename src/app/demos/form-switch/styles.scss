@@ -206,7 +206,6 @@
     &-btn {
       // I will be covering button with animated border in a separate tutorial, stay tuned :)
       --btn-width: 100px;
-      --border-width: 3px;
 
       overflow: hidden;
       width: var(--btn-width);
@@ -214,32 +213,6 @@
       @keyframes rotateBtnBg {
         to {
           transform: translate(-50%, -50%) rotate(360deg);
-        }
-      }
-
-      &-bg {
-        z-index: 2;
-        position: absolute;
-        inset: 0;
-        clip-path: polygon(
-          0 0, 100% 0, 100% 100%, 0 100%, 0 0, // first lap
-          var(--border-width) var(--border-width), // init position for second lap
-          var(--border-width) calc(100% - var(--border-width)), // go down
-          calc(100% - var(--border-width)) calc(100% - var(--border-width)), // to the right
-          calc(100% - var(--border-width)) var(--border-width), // up
-          var(--border-width) var(--border-width) // finish lap
-        );
-
-        &:before {
-          content: '';
-          position: absolute;
-          left: 50%;
-          top: 50%;
-          width: 150%;
-          padding-bottom: 150%;
-          transform: translate(-50%, -50%);
-          background: conic-gradient(from 270deg, #ff4800 10%, #dfd902 35%, #20dc68, #0092f4, #da54d8 72% 75%, #ff4800 95%);
-          animation: rotateBtnBg 2s linear infinite;
         }
       }
 

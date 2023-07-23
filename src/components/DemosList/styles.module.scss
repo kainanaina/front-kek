@@ -1,0 +1,32 @@
+.heading {
+  margin: 20px auto;
+  text-align: center;
+}
+
+.demos {
+  --demo-width: 360px;
+  --demos-per-row: 3;
+
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: calc((var(--container-width) - (var(--demo-width) * var(--demos-per-row))) / (var(--demos-per-row) - 1));
+  row-gap: 20px;
+}
+
+.demo {
+  width: var(--demo-width);
+  max-width: 100%;
+
+  &Preview {
+    --border-width: 4px;
+
+    height: 240px;
+    padding: var(--border-width);
+
+    > * {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+}

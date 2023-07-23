@@ -2,15 +2,15 @@ import { Roboto, Oswald } from 'next/font/google';
 import Link from 'next/link';
 import Script from 'next/script';
 import cn from 'classnames';
+import { IconBrandTwitterFilled } from '@tabler/icons-react';
+import { generateMetadata } from 'src/utils';
+import { TWITTER } from 'src/constants';
 import s from './styles.module.scss';
 import 'src/styles/index.scss';
 
 const GA_ID = 'G-0TX0P0DGB7';
 
-export const metadata = {
-  title: 'Front-End Demos and Tutorials | FRONT-KEK',
-  description: 'lose all hope ye who enter here',
-};
+export const metadata = generateMetadata({});
 
 const openSans = Roboto({
   weight: ['300', '400', '500', '700'],
@@ -55,11 +55,22 @@ export default function RootLayout({
         <div className={s.layout}>
           <div className={s.layoutHeader}>
             <div className={cn(s.layoutHeaderContent, 'container')}>
-              <Link href="/">
-                <Logo />
-              </Link>
-              <Link href="/demos">Demos</Link>
-              <Link href="/about">About Me</Link>
+              <div className={s.layoutHeaderSide}>
+                <Link href="/">
+                  <Logo />
+                </Link>
+                <Link href="/demos">Demos</Link>
+                <Link href="/about-me">About Me</Link>
+              </div>
+              <div className={s.layoutHeaderSide}>
+                <a
+                  href={TWITTER}
+                  target="_blank"
+                  style={{ color: 'rgb(29, 155, 240)' }}
+                >
+                  <IconBrandTwitterFilled />
+                </a>
+              </div>
             </div>
           </div>
           <div className={s.layoutContent}>{children}</div>

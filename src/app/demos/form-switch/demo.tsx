@@ -51,7 +51,7 @@ export default function Demo() {
                   className="demo__switcher-btn"
                   onClick={() => setSwitched(!switched)}
                 >
-                  <span className="demo__switcher-btn-bg" />
+                  <span className="animated-border" />
                   <span className="demo__switcher-btn-inner">
                     <span>Sign Up</span>
                     <span>Sign In</span>

@@ -44,7 +44,7 @@ export default function SpiralBlocks({
 
   return (
     <div
-      className="demo"
+      className="demospiral"
       style={
         {
           '--box-size': `${boxSize}px`,
@@ -58,14 +58,14 @@ export default function SpiralBlocks({
         return (
           <div
             key={i}
-            className="demo__block"
+            className="demospiral__block"
             style={{
               left: `${x * 100}%`,
               top: `${y * 100}%`,
             }}
           >
             <div
-              className="demo__block-inner"
+              className="demospiral__block-inner"
               style={{
                 transform: `rotateY(${direction[0] * 90}deg) rotateX(${
                   direction[1] * -90

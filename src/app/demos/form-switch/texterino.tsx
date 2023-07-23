@@ -1,6 +1,8 @@
 import cn from 'classnames';
-import { Disclaimers } from 'src/components';
-import { TWITTER } from 'src/constants';
+import { Disclaimers, CodeExamples } from 'src/components';
+import { TWITTER, CODEPEN_PROFILE } from 'src/constants';
+
+const slug = 'form-switch';
 
 function Texterino() {
   return (
@@ -10,11 +12,12 @@ function Texterino() {
 
       <h2>What, Why, How?</h2>
       <p>
-        This demo is a {'"remaster"'} of my <CodepenLink>old demo</CodepenLink>{' '}
-        back from 2017. New version is most likely worse from UX and aethestic
-        point of views, but this website is not about that. This website is
-        about doing excessive stupid stuff with animations and cutting-edge
-        tech, so don&apos;t seek any meaning here.
+        This demo is a {'"remaster"'} of my{' '}
+        <OldCodepenLink>old demo</OldCodepenLink> back from 2017. New version is
+        most likely worse from UX and aethestic point of views, but this website
+        is not about that. This website is about doing excessive stupid stuff
+        with animations and cutting-edge tech, so don&apos;t seek any meaning
+        here.
       </p>
       <p>Original demo was based around 2 following animations:</p>
       <ol>
@@ -43,43 +46,7 @@ function Texterino() {
       </p>
       <p>So let&apos;s dive in!</p>
 
-      <h2>Show me the code</h2>
-      <p>
-        I&apos;m still working on proper code embeddings, so for now I will be
-        using github links and codepen as source code materials, while tutorial
-        will be mostly about general explanation behind animations and tricks.
-      </p>
-      <p>
-        I will try to heavily comment my code (mainly styles) to compensate for
-        my lack of tutorial skills.
-      </p>
-      <p>
-        Also, if reading SCSS code with parent references nesting is too much
-        trouble, you can always check compiled CSS in codepen to see the final
-        classes and styles.
-      </p>
-
-      <p>
-        <a
-          href="https://github.com/kainanaina/front-kek/blob/main/src/app/demos/form-switch/demo.tsx"
-          target="_blank"
-        >
-          demo.tsx
-        </a>
-      </p>
-      <p>
-        <StylesLink>styles.module.scss</StylesLink>
-      </p>
-
-      <iframe
-        style={{ width: '100%', height: 600 }}
-        title="Demo Codepen Embed"
-        src="https://codepen.io/suez/embed/XWyBpre"
-        loading="lazy"
-        allowFullScreen
-      >
-        See the Pen
-      </iframe>
+      <CodeExamples slug={slug} codepenId="XWyBpre" />
 
       <h2>Rough explanation of layout and switch animation</h2>
       <p>Here is the initial view breakdown:</p>
@@ -109,9 +76,9 @@ function Texterino() {
 
       <h2>Switcher and clip-path</h2>
       <p>
-        In the original <CodepenLink>codepen demo</CodepenLink>, switcher is
-        just a normal container with <HL>overflow: hidden</HL>, inside of which
-        we can put our content, and background is done via nested element
+        In the original <OldCodepenLink>codepen demo</OldCodepenLink>, switcher
+        is just a normal container with <HL>overflow: hidden</HL>, inside of
+        which we can put our content, and background is done via nested element
         (:before) with width equal to fixed demo container width, so that you
         could move it during animation in the opposite direction of switcher
         movement, to create an effect of {'"revealing"'} the background behind
@@ -195,7 +162,7 @@ function Texterino() {
         We&apos;ll also need to apply very similar clip-path values to main demo
         container, to match the arrow shape size, since otherwise we&apos;ll end
         up with white corners. Check <HL>demo__inner</HL> class{' '}
-        <StylesLink>here</StylesLink>.
+        <CodeExamples.StylesLink slug={slug}>here</CodeExamples.StylesLink>.
       </p>
       <p>
         In order to understand how switcher text content is positioned and moved
@@ -242,20 +209,9 @@ function HL({ children, code }: React.PropsWithChildren<{ code?: boolean }>) {
   return <span className={cn('highlight', { code })}>{children}</span>;
 }
 
-function CodepenLink({ children }: React.PropsWithChildren) {
+function OldCodepenLink({ children }: React.PropsWithChildren) {
   return (
-    <a href="https://codepen.io/suez/pen/RpNXOR" target="_blank">
-      {children}
-    </a>
-  );
-}
-
-function StylesLink({ children }: React.PropsWithChildren) {
-  return (
-    <a
-      href="https://github.com/kainanaina/front-kek/blob/main/src/app/demos/form-switch/styles.module.scss"
-      target="_blank"
-    >
+    <a href={`${CODEPEN_PROFILE}/pen/RpNXOR`} target="_blank">
       {children}
     </a>
   );
