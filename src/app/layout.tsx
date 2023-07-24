@@ -72,7 +72,7 @@ export default function RootLayout({
                 <a
                   href={TWITTER}
                   target="_blank"
-                  style={{ color: 'rgb(29, 155, 240)' }}
+                  style={{ color: 'var(--color-twitter)' }}
                 >
                   <IconBrandTwitterFilled />
                 </a>

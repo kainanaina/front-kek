@@ -1,0 +1,187 @@
+.twitter-x {
+  $parentRef: &;
+
+  --logo-size: 270px;
+  --twitter-reaction-delay: calc(var(--elon-waiting-at) + var(--elon-appearence-at) + var(--twitter-reaction-waiting-at));
+  --twitter-shaking-delay: calc(var(--twitter-reaction-delay) + var(--twitter-reaction-at));
+  --logo-fill-delay: calc(var(--twitter-shaking-delay) + var(--twitter-shaking-at) + var(--logo-fill-waiting-at));
+  --color-change-delay: calc(var(--logo-fill-delay) + var(--logo-fill-at));
+  --color-change-done-delay: calc(var(--color-change-delay) + var(--color-change-at));
+  --x-done-delay: calc(var(--color-change-done-delay) + var(--x-part-2-at));
+  --doge-done-delay: calc(var(--x-done-delay) + var(--doge-at));
+
+  --x-part-2-at: 0.6s;
+  --doge-at: 0.3s;
+
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #fff;
+
+  @mixin isMorphing {
+    #{$parentRef}.s--morphing & {
+      @content;
+    }
+  }
+
+  &__center {
+    width: var(--logo-size);
+    height: var(--logo-size);
+  }
+
+  @keyframes shaking {
+    @for $i from 0 through 50 {
+      #{$i * 2%} {
+        transform: translate((random(20) - 10) * 1px, (random(20) - 10) * 1px);
+      } 
+    }
+  }
+
+  &__logo {
+    z-index: 2;
+    position: absolute;
+    inset: 0;
+
+    @include isMorphing {
+      animation: shaking var(--twitter-shaking-at) var(--twitter-shaking-delay);
+    }
+  
+    &-svg {
+      overflow: visible;
+      stroke: var(--color-twitter);
+      fill: var(--color-twitter);
+      will-change: stroke, fill;
+
+      @include isMorphing {
+        transition: stroke var(--color-change-at) var(--color-change-delay), fill var(--logo-fill-at) var(--logo-fill-delay);
+        fill: transparent;
+        stroke: #fff;
+      }
+    }
+
+    &-svg2 {
+      overflow: visible;
+      position: absolute;
+      inset: 0;
+      fill: #fff;
+
+      path {
+        transform: scale(0);
+
+        &:first-child {
+          transform-origin: 100px 160px;
+        }
+
+        &:last-child {
+          transform-origin: 160px 100px;
+        }
+
+        @include isMorphing {
+          transition: transform var(--x-part-2-at) var(--color-change-done-delay) cubic-bezier(0.13, 0.9, 0.3, 1.3);
+          transform: scale(1);
+        }
+      }
+    }
+  }
+
+  &__sweat {
+    --timing: var(--twitter-reaction-at) var(--twitter-reaction-delay);
+    --y: 10px;
+
+    position: absolute;
+    right: 60px;
+    top: 55px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 60px;
+    gap: 4px;
+    color: white;
+    transform: rotate(180deg) translateY(var(--y));
+    opacity: 0;
+
+    svg {
+      transform: rotate(180deg);
+      will-change: opacity;
+
+      @include isMorphing {
+        transition: opacity var(--logo-fill-at) var(--logo-fill-delay);
+        opacity: 0;
+      }
+    }
+
+    @include isMorphing {
+      transition: opacity var(--timing), transform var(--timing);
+      --y: 0px;
+      opacity: 1;
+    }
+  }
+
+  &__elon {
+    position: absolute;
+    left: calc(100% + 20px);
+    top: 50%;
+    width: 300px;
+    transform: translateY(-50%);
+    opacity: 0;
+    will-change: opacity;
+
+    @include isMorphing {
+      transition: opacity var(--elon-appearence-at) var(--elon-waiting-at);
+      opacity: 1;
+    }
+  }
+
+  &__black-bg {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 150vmax;
+    height: 150vmax;
+    margin-left: -75vmax;
+    margin-top: -75vmax;
+    border-radius: 50%;
+    background: #000;
+    transform: scale(0);
+    will-change: transform;
+
+    @include isMorphing {
+      transition: transform var(--color-change-at) var(--color-change-delay);
+      transform: scale(1);
+    }
+  }
+  
+  &__doge {
+    position: absolute;
+    left: calc(100% + 5px);
+    bottom: calc(100% + 15px);
+    width: 40px;
+    transform: scale(0);
+
+    @include isMorphing {
+      transition: transform var(--doge-at) var(--x-done-delay) cubic-bezier(0.13, 0.9, 0.4, 1.6);
+      transform: scale(1);
+    }
+  }
+
+  &__reset {
+    position: absolute;
+    left: 50%;
+    top: calc(100% + 40px);
+    width: 36px;
+    height: 36px;
+    margin-left: -18px;
+    stroke: #fff;
+    transform: scale(0);
+    pointer-events: none;
+    cursor: pointer;
+
+    @include isMorphing {
+      transition: transform 0.3s var(--doge-done-delay) cubic-bezier(0.13, 0.9, 0.4, 1.6);
+      transform: scale(1);
+      pointer-events: auto;
+    }
+  }
+}
