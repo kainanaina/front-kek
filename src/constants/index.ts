@@ -14,6 +14,12 @@ export const DEMOS = [
     seoPreview: 'https://i.imgur.com/gRJLren.png',
   },
   {
+    title: 'Twitter X Logo Transformation',
+    slug: 'twitter-x-logo',
+    preview: 'https://i.imgur.com/sxTuRfB.mp4',
+    seoPreview: 'https://i.imgur.com/wEa1xIH.png',
+  },
+  {
     title: 'Spiral Blocks',
     slug: 'spiral-blocks',
     preview: 'https://i.imgur.com/8uXTEri.mp4',
