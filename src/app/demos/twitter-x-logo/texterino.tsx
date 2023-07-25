@@ -1,8 +1,10 @@
 import { CodeExamples } from 'src/components';
 
-const slug = 'twitter-x-logo';
+interface Props {
+  slug: string;
+}
 
-export default function Texterino() {
+export default function Texterino({ slug }: Props) {
   return (
     <div className="container texterino">
       <h1>Twitter X Logo Transformation Demo</h1>
