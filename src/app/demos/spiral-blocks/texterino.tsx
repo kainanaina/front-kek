@@ -1,8 +1,10 @@
 import { CodeExamples } from 'src/components';
 
-const slug = 'spiral-blocks';
+interface Props {
+  slug: string;
+}
 
-export default function Texterino() {
+export default function Texterino({ slug }: Props) {
   return (
     <div className="container texterino">
       <h1>Spiral Blocks Animation Demo</h1>

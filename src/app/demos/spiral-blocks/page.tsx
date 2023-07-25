@@ -4,7 +4,8 @@ import { DEMOS } from 'src/constants';
 import Demo from './demo';
 import Texterino from './texterino';
 
-const demo = DEMOS.find((d) => d.slug === 'spiral-blocks');
+const slug = 'spiral-blocks';
+const demo = DEMOS.find((d) => d.slug === slug);
 
 export const metadata = generateMetadata({
   title: demo?.title,
@@ -17,7 +18,7 @@ export default function SpiralBlocksPage() {
       <DemoContainer>
         <Demo />
       </DemoContainer>
-      <Texterino />
+      <Texterino slug={slug} />
     </>
   );
 }

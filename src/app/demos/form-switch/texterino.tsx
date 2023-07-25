@@ -2,9 +2,11 @@ import cn from 'classnames';
 import { Disclaimers, CodeExamples } from 'src/components';
 import { TWITTER, CODEPEN_PROFILE } from 'src/constants';
 
-const slug = 'form-switch';
+interface Props {
+  slug: string;
+}
 
-function Texterino() {
+function Texterino({ slug }: Props) {
   return (
     <div className="container texterino">
       <Disclaimers />

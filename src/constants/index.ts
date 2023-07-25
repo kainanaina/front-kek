@@ -16,7 +16,7 @@ export const DEMOS = [
   {
     title: 'Twitter X Logo Transformation',
     slug: 'twitter-x-logo',
-    preview: 'https://i.imgur.com/sxTuRfB.mp4',
+    preview: 'https://i.imgur.com/R4dX2k8.mp4',
     seoPreview: 'https://i.imgur.com/wEa1xIH.png',
   },
   {
