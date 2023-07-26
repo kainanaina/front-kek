@@ -25,10 +25,12 @@
     height: var(--logo-size);
   }
 
-  // scss generates random values on compilation which are allowing us to make it look like a random shaking, but rapidly shifting element vertically and horizontally
+  // scss generates random values on compilation which are allowing us to make it look like a random shaking,
+  // by rapidly shifting element vertically and horizontally
   @keyframes shaking {
     @for $i from 0 through 50 {
-      #{$i * 2%} {
+      #{$i * 2%} { // interpolated results are 0%, 2%, ... 98%, 100%
+        // (random(20) - 10) * 1px is a random value between -10px and 10px
         transform: translate((random(20) - 10) * 1px, (random(20) - 10) * 1px);
       } 
     }
@@ -50,7 +52,7 @@
       will-change: stroke, fill;
 
       @include isMorphing {
-        transition: stroke var(--color-change-at) var(--color-change-delay), fill var(--logo-fill-at) var(--logo-fill-delay);
+        transition: stroke var(--logo-morphing-at) var(--logo-morphing-delay), fill var(--logo-fill-at) var(--logo-fill-delay);
         fill: transparent;
         stroke: #fff;
       }
@@ -66,9 +68,10 @@
         transform: scale(0);
 
         // setting custom transform-origin is required to make the animation look like the line is being drawn from the center
-        // ideally we would be using % values, but svg got this ancient trouble where transform-origin with % just don't works in many browsers
+        // ideally we would be using % values, but svg got this ancient trouble where transform-origin with % just doesn't works in many browsers
         // libraries like GSAP got their own logic to allow % values, which relies on some internal calculations, but we don't have such luxury here
         &:first-child {
+          // keep in mind that this svg got viewBox="0 0 270 270", so px values are relative to these dimensions, unlike with twitter icon which is 24x24
           transform-origin: 100px 160px;
         }
 
@@ -78,7 +81,7 @@
 
         @include isMorphing {
           // cubic-bezier transition-timing-function allows you to create fancier animations, where elements could be bouncing or looking slightly elastic
-          // you can check this playground to get the idea https://cubic-bezier.com/
+          // you can check this playground to get the better idea https://cubic-bezier.com/
           transition: transform var(--x-part-2-at) var(--x-part-2-delay) cubic-bezier(0.13, 0.9, 0.3, 1.3);
           transform: scale(1);
         }
@@ -100,6 +103,7 @@
     color: white;
     transform: translateY(-10px);
     opacity: 0;
+    will-change: opacity, transform;
 
     @include isMorphing {
       transition: opacity var(--timing), transform var(--timing);
@@ -154,6 +158,8 @@
     position: absolute;
     left: 50%;
     top: 50%;
+    // 150vmax ensures that this element will cover the entire screen no matter what
+    // (assuming that parent container doesn't have it's own overflow: hidden)
     width: 150vmax;
     height: 150vmax;
     margin-left: -75vmax;
@@ -164,7 +170,7 @@
     will-change: transform;
 
     @include isMorphing {
-      transition: transform var(--color-change-at) var(--color-change-delay);
+      transition: transform var(--logo-morphing-at) var(--logo-morphing-delay);
       transform: scale(1);
     }
   }

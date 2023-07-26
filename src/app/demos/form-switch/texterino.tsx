@@ -1,10 +1,93 @@
-import cn from 'classnames';
-import { Disclaimers, CodeExamples } from 'src/components';
+import { Disclaimers, CodeExamples, Begging } from 'src/components';
 import { TWITTER, CODEPEN_PROFILE } from 'src/constants';
 
 interface Props {
   slug: string;
 }
+
+const switcherCode = `
+.demo__switcher {
+  --x1: calc(100% - var(--switcher-width));
+  --x2: calc(100% - var(--arrow-offset));
+  --x3: 100%;
+  --x4: calc(100% - var(--arrow-offset));
+  --x5: calc(100% - var(--switcher-width));
+  --x6: calc(100% - var(--switcher-width) + var(--arrow-offset));
+
+  // ... other styles
+  clip-path: polygon(var(--x1) 0, var(--x2) 0, var(--x3) 50%, var(--x4) 100%, var(--x5) 100%, var(--x6) 50%);
+  transition: clip-path var(--anim-time) var(--easing);
+  will-change: clip-path;
+
+  @include switched {
+    --x1: var(--arrow-offset);
+    --x2: var(--switcher-width);
+    --x3: calc(var(--switcher-width) - var(--arrow-offset));
+    --x4: var(--switcher-width);
+    --x5: var(--arrow-offset);
+    --x6: 0;
+  }
+}
+`;
+
+const demoInnerCode = `
+.demo__inner {
+  --demoX1: 0;
+  --demoX2: calc(100% - var(--arrow-offset));
+  --demoX3: 100%;
+  --demoX4: calc(100% - var(--arrow-offset));
+  --demoX5: 0;
+  --demoX6: 0;
+
+  // ... other styles
+  transition: clip-path var(--anim-time) var(--easing);
+  will-change: clip-path;
+  // clip the main container to match the arrow shape, otherwise there will be white corners
+  clip-path: polygon(var(--demoX1) 0, var(--demoX2) 0, var(--demoX3) 50%, var(--demoX4) 100%, var(--demoX5) 100%, var(--demoX6) 50%);
+
+  @include switched {
+    --demoX1: var(--arrow-offset);
+    --demoX2: 100%;
+    --demoX3: 100%;
+    --demoX4: 100%;
+    --demoX5: var(--arrow-offset);
+    --demoX6: 0;
+  }
+}
+`;
+
+const switcherContentCode = `
+.demo__switcher-inner {
+  /* I'm using this sub-container with full-width to allow animating switcher content position with transforms,
+  instead of left/right, because of performance difference
+  but transforms got severe limitation - relative % values are tied to element's own width/height,
+  not parent's, so that's why we need this sub-container
+  thanks to calc, we can shift it all the way to the left minus switcher width,
+  which will end up an equivalent of animating from left: calc(100% - var(--switcher-width)) to left: 0 */
+  height: 100%;
+  transition: var(--transition-transform);
+  will-change: transform;
+
+  @include switched {
+    transform: translateX(calc((100% - var(--switcher-width)) * -1));
+  }
+}
+
+.demo__switcher-content {
+  // our content is always positioned in the same place on the right
+  // so we are just moving its parent container instead, as explained above
+  overflow: hidden;
+  position: absolute;
+  right: 0;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  column-gap: 20px;
+  width: var(--switcher-width);
+  height: 100%;
+}
+`;
 
 function Texterino({ slug }: Props) {
   return (
@@ -133,45 +216,25 @@ function Texterino({ slug }: Props) {
         src="https://i.imgur.com/1Bj3Jea.png"
         alt="Switcher container visual breakdown"
       />
-      <p>The initial x values are following:</p>
-      <p>
-        <HL code>
-          {`--x1: calc(100% - var(--switcher-width));
---x2: calc(100% - var(--arrow-offset)); // arrow-offset is responsible for creating that arrow shape
---x3: 100%;
---x4: calc(100% - var(--arrow-offset));
---x5: calc(100% - var(--switcher-width));
---x6: calc(100% - var(--switcher-width) + var(--arrow-offset));`}
-        </HL>
-      </p>
-      <p>
-        And for switched version we just need to mirror these values on the left
-        side:
-      </p>
-      <p>
-        <HL code>
-          {`@include switched {
-  --x1: var(--arrow-offset);
-  --x2: var(--switcher-width);
-  --x3: calc(var(--switcher-width) - var(--arrow-offset));
-  --x4: var(--switcher-width);
-  --x5: var(--arrow-offset);
-  --x6: 0;
-}`}
-        </HL>
-      </p>
+      <p>Here you can see x values for initial and switched states:</p>
+      <pre>
+        <code className="lang-css">{switcherCode}</code>
+      </pre>
       <p>
         We&apos;ll also need to apply very similar clip-path values to main demo
         container, to match the arrow shape size, since otherwise we&apos;ll end
-        up with white corners. Check <HL>demo__inner</HL> class{' '}
-        <CodeExamples.StylesLink slug={slug}>here</CodeExamples.StylesLink>.
+        up with white corners.
       </p>
+      <pre>
+        <code className="lang-scss">{demoInnerCode}</code>
+      </pre>
       <p>
-        In order to understand how switcher text content is positioned and moved
-        during animation, please check code comments for{' '}
-        <HL>demo__switcher-inner</HL> and <HL>demo__switcher-content</HL>{' '}
-        classes.
+        Here is the rough explanation of how switcher text content is positioned
+        and moved during the animation:
       </p>
+      <pre>
+        <code className="lang-scss">{switcherContentCode}</code>
+      </pre>
       <p>
         Once switcher code is ready, the core animation is pretty much done.
       </p>
@@ -203,12 +266,14 @@ function Texterino({ slug }: Props) {
           <HL>create custom class that does all the usual stuff</HL>?
         </li>
       </ul>
+
+      <Begging />
     </div>
   );
 }
 
-function HL({ children, code }: React.PropsWithChildren<{ code?: boolean }>) {
-  return <span className={cn('highlight', { code })}>{children}</span>;
+function HL({ children }: React.PropsWithChildren) {
+  return <span className="highlight">{children}</span>;
 }
 
 function OldCodepenLink({ children }: React.PropsWithChildren) {

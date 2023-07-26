@@ -23,7 +23,7 @@ const animations = [
   { name: 'twitter-shaking', duration: 1.4 },
   { name: 'logo-fill-waiting', duration: 0 },
   { name: 'logo-fill', duration: 0.1 },
-  { name: 'color-change', duration: 0.2 },
+  { name: 'logo-morphing', duration: 0.2 }, // this step combines black background circle expansion and twitter logo morphing with stroke color change
   { name: 'x-part-2', duration: 0.6 },
   { name: 'doge-appearence', duration: 0.3 },
   { name: 'reset-appearence', duration: 0.3 },
@@ -53,9 +53,9 @@ function TwitterXLogoDemo({ onReset }: Props) {
   useEffect(() => {
     setIsMorphing(true);
 
-    const colorChangeAnim = animationsWithDelaysMap['color-change'] * 1000;
+    const colorChangeAnim = animationsWithDelaysMap['logo-morphing'] * 1000;
     const colorChangeDelay =
-      animationsWithDelaysMap['color-change-delay'] * 1000;
+      animationsWithDelaysMap['logo-morphing-delay'] * 1000;
 
     // using good old dom selector, nothing fancy
     // but in a more serious project I would use useRef hook to get a reference to this element to evade relying on global classes
@@ -90,7 +90,8 @@ function TwitterXLogoDemo({ onReset }: Props) {
         }
 
         if (p >= 0.5 && !linejoinChanged) {
-          // twitter icon got round linejoin by default to make it look smoother, but X rectangle requires sharp corners, so this part changes it mid-animation
+          // twitter icon got round linejoin by default to make it look smoother,
+          // but X rectangle requires sharp corners, so this part changes it mid-animation
           linejoinChanged = true;
           $path?.setAttribute('stroke-linejoin', 'miter');
         }
@@ -117,18 +118,22 @@ function TwitterXLogoDemo({ onReset }: Props) {
     >
       <div className="twitter-x__center">
         <div className="twitter-x__logo">
+          {/* I'm using tabler icons which are based on 24x24 viewBox,
+          so values for things like stroke are relative to that original size */}
           <IconBrandTwitter
             size={logoSize}
             stroke="1.5"
             className="twitter-x__logo-svg"
           />
 
-          {/* Second part of X logo, the line from bottom-left corner to top-right. But actually it's 2 lines in our case. Painted with numbers :) */}
+          {/* Second part of X logo, the line from bottom-left corner to top-right.
+          But actually it's 2 lines in our case. Painted with numbers :) */}
           <svg viewBox="0 0 270 270" className="twitter-x__logo-svg2">
             <path d="M-20,280 0,280 122,153 102,150z" />
             <path d="M250,-10 270,-10 160,115 150,100z" />
           </svg>
 
+          {/* I'm nesting it in a container so that I could hide svg droplet later with separate transition, without using second class */}
           <div className="twitter-x__sweat">
             <IconDropletFilled size={24} />
           </div>

@@ -59,7 +59,7 @@ export default function AboutMePage() {
 
       <h2>Hire me!</h2>
       <p>
-        Also I&apos;m looking for a new opportunities as Senior/Lead Frontend
+        I&apos;m looking for a new opportunities as Senior/Lead Frontend
         Engineer. Please check{' '}
         <a href={LINKEDIN_PROFILE} target="_blank">
           my linkedin

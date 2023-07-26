@@ -5,9 +5,10 @@ import cn from 'classnames';
 import {
   IconBrandTwitterFilled,
   IconBrandGithubFilled,
+  IconBrandCodepen,
 } from '@tabler/icons-react';
 import { generateMetadata } from 'src/utils';
-import { GITHUB_REPO, TWITTER } from 'src/constants';
+import { GITHUB_REPO, TWITTER, CODEPEN_PROFILE } from 'src/constants';
 import s from './styles.module.scss';
 import 'src/styles/index.scss';
 
@@ -36,9 +37,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <head></head>
+      <head>
+        <link
+          href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css"
+          rel="stylesheet"
+        ></link>
+      </head>
       {GA_ID && (
         <>
+          <Script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js" />
+          <Script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js" />
           <Script
             src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
             strategy="afterInteractive"
@@ -68,6 +76,9 @@ export default function RootLayout({
               <div className={s.layoutHeaderSide}>
                 <a href={GITHUB_REPO} target="_blank">
                   <IconBrandGithubFilled />
+                </a>
+                <a href={CODEPEN_PROFILE} target="_blank">
+                  <IconBrandCodepen />
                 </a>
                 <a
                   href={TWITTER}

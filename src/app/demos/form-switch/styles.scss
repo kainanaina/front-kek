@@ -8,7 +8,8 @@
   --switcher-width: 260px;
   --arrow-offset: 30px;
   --anim-time: 1.2s;
-  --transition-transform: transform var(--anim-time) ease-in-out;
+  --easing: ease-in-out;
+  --transition-transform: transform var(--anim-time) var(--easing);
   --transition-opacity: opacity 0s calc(var(--anim-time) / 2);
 
   --btn-height: 36px;
@@ -43,7 +44,7 @@
     height: 100%;
     padding-right: var(--switcher-width);
     background: #fff;
-    transition: clip-path var(--anim-time) ease-in-out;
+    transition: clip-path var(--anim-time) var(--easing);
     will-change: clip-path;
     // clip the main container to match the arrow shape, otherwise there will be white corners
     clip-path: polygon(var(--demoX1) 0, var(--demoX2) 0, var(--demoX3) 50%, var(--demoX4) 100%, var(--demoX5) 100%, var(--demoX6) 50%);
@@ -116,7 +117,7 @@
     background-size: cover;
     background-position: center center;
     clip-path: polygon(var(--x1) 0, var(--x2) 0, var(--x3) 50%, var(--x4) 100%, var(--x5) 100%, var(--x6) 50%);
-    transition: clip-path var(--anim-time) ease-in-out;
+    transition: clip-path var(--anim-time) var(--easing);
     will-change: clip-path;
 
     @include switched {
@@ -139,9 +140,12 @@
     }
 
     &-inner {
-      // I'm using this sub-container with full-width to allow animating switcher content position with transforms, instead of left/right, because of performance difference
-      // but transforms got severe limitation - relative % values are tied to element's own width/height, not parent's, so that's why we need this sub-container
-      // thanks to calc, we can shift it all the way to the left minus switcher width, which will end up an equivalent of animating from left: calc(100% - var(--switcher-width)) to left: 0
+      /* I'm using this sub-container with full-width to allow animating switcher content position with transforms,
+      instead of left/right, because of performance difference
+      but transforms got severe limitation - relative % values are tied to element's own width/height,
+      not parent's, so that's why we need this sub-container
+      thanks to calc, we can shift it all the way to the left minus switcher width,
+      which will end up an equivalent of animating from left: calc(100% - var(--switcher-width)) to left: 0 */
       height: 100%;
       transition: var(--transition-transform);
       will-change: transform;
@@ -152,7 +156,8 @@
     }
 
     &-content {
-      // our content is always positioned in the same place on right, we are just moving its parent instead, as explained above
+      // our content is always positioned in the same place on the right
+      // so we are just moving its parent container instead, as explained above
       overflow: hidden;
       position: absolute;
       right: 0;
