@@ -215,12 +215,6 @@
       overflow: hidden;
       width: var(--btn-width);
 
-      @keyframes rotateBtnBg {
-        to {
-          transform: translate(-50%, -50%) rotate(360deg);
-        }
-      }
-
       &-inner {
         z-index: 1;
         position: absolute;

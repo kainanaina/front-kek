@@ -102,6 +102,12 @@ input, button {
     var(--bw) var(--bw) // finish lap
   );
 
+  @keyframes rotateBtnBg {
+    to {
+      transform: translate(-50%, -50%) rotate(360deg);
+    }
+  }
+
   &:before {
     content: '';
     position: absolute;
