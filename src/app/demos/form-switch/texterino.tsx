@@ -1,9 +1,7 @@
-import { Disclaimers, CodeExamples, Begging } from 'src/components';
+import { Texterino } from 'src/components';
 import { TWITTER, CODEPEN_PROFILE } from 'src/constants';
 
-interface Props {
-  slug: string;
-}
+const { HL } = Texterino;
 
 const switcherCode = `
 .demo__switcher {
@@ -89,10 +87,14 @@ const switcherContentCode = `
 }
 `;
 
-function Texterino({ slug }: Props) {
+interface Props {
+  slug: string;
+}
+
+export default function Text({ slug }: Props) {
   return (
-    <div className="container texterino">
-      <Disclaimers />
+    <Texterino>
+      <Texterino.Disclaimers />
       <h1>Form Switch Animation Demo</h1>
 
       <h2>What, Why, How?</h2>
@@ -131,7 +133,7 @@ function Texterino({ slug }: Props) {
       </p>
       <p>So let&apos;s dive in!</p>
 
-      <CodeExamples slug={slug} codepenId="XWyBpre" />
+      <Texterino.CodeExamples slug={slug} codepenId="XWyBpre" />
 
       <h2>Rough explanation of layout and switch animation</h2>
       <p>Here is the initial view breakdown:</p>
@@ -267,13 +269,9 @@ function Texterino({ slug }: Props) {
         </li>
       </ul>
 
-      <Begging />
-    </div>
+      <Texterino.Begging />
+    </Texterino>
   );
-}
-
-function HL({ children }: React.PropsWithChildren) {
-  return <span className="highlight">{children}</span>;
 }
 
 function OldCodepenLink({ children }: React.PropsWithChildren) {
@@ -283,5 +281,3 @@ function OldCodepenLink({ children }: React.PropsWithChildren) {
     </a>
   );
 }
-
-export default Texterino;

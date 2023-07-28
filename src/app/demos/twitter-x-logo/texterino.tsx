@@ -1,8 +1,6 @@
-import { Disclaimers, CodeExamples, Begging } from 'src/components';
+import { Texterino } from 'src/components';
 
-interface Props {
-  slug: string;
-}
+const { HL } = Texterino;
 
 const sequenceCode = `
 // this is our single source of truth for chain of animations timings, values are in seconds
@@ -265,10 +263,14 @@ export default function ResetWrapper() {
 }
 `;
 
-export default function Texterino({ slug }: Props) {
+interface Props {
+  slug: string;
+}
+
+export default function Text({ slug }: Props) {
   return (
-    <div className="container texterino">
-      <Disclaimers />
+    <Texterino>
+      <Texterino.Disclaimers />
       <h1>Twitter X Logo Transformation Demo</h1>
       <h2>What is even happening here?</h2>
       <p>
@@ -297,7 +299,7 @@ export default function Texterino({ slug }: Props) {
         morph the logo).
       </p>
 
-      <CodeExamples slug={slug} codepenId="RwqYNar" />
+      <Texterino.CodeExamples slug={slug} codepenId="RwqYNar" />
 
       <h2>Initial setup</h2>
       <p>
@@ -510,11 +512,7 @@ export default function Texterino({ slug }: Props) {
         </li>
       </ul>
 
-      <Begging />
-    </div>
+      <Texterino.Begging />
+    </Texterino>
   );
-}
-
-function HL({ children }: React.PropsWithChildren) {
-  return <span className="highlight">{children}</span>;
 }

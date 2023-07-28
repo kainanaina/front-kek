@@ -1,15 +1,15 @@
-import { CodeExamples } from 'src/components';
+import { Texterino } from 'src/components';
 
 interface Props {
   slug: string;
 }
 
-export default function Texterino({ slug }: Props) {
+export default function Text({ slug }: Props) {
   return (
-    <div className="container texterino">
+    <Texterino>
       <h1>Spiral Blocks Animation Demo</h1>
-      <CodeExamples slug={slug} />
+      <Texterino.CodeExamples slug={slug} />
       <p>Tutorial Coming soon...</p>
-    </div>
+    </Texterino>
   );
 }
