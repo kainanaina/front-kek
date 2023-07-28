@@ -74,10 +74,14 @@ export default function RootLayout({
                 <Link href="/about-me">About Me</Link>
               </div>
               <div className={s.layoutHeaderSide}>
-                <a href={GITHUB_REPO} target="_blank">
+                <a href={GITHUB_REPO} target="_blank" aria-label="Github Repo">
                   <IconBrandGithubFilled />
                 </a>
-                <a href={CODEPEN_PROFILE} target="_blank">
+                <a
+                  href={CODEPEN_PROFILE}
+                  target="_blank"
+                  aria-label="Codepen Profile"
+                >
                   <IconBrandCodepen />
                 </a>
                 <a
