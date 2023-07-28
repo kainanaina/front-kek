@@ -29,4 +29,25 @@
       object-fit: cover;
     }
   }
+
+  &Title {
+    display: inline-block;
+    background: linear-gradient(to right, #ff4800, #8d00ff);
+    background-clip: text;
+    color: transparent;
+  }
+
+  &Tags {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  &Tag {
+    padding: 4px 8px;
+    text-transform: uppercase;
+    background: var(--color-gray);
+    line-height: 1;
+  }
 }

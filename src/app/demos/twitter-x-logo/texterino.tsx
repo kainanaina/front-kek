@@ -271,7 +271,7 @@ export default function Text({ slug }: Props) {
   return (
     <Texterino>
       <Texterino.Disclaimers />
-      <h1>Twitter X Logo Transformation Demo</h1>
+      <h1>Twitter X Logo Transformation Tutorial</h1>
       <h2>What is even happening here?</h2>
       <p>
         So first let&apos;s break down everything that is happening here in this

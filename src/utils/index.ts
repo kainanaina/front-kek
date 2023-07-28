@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { GITHUB_REPO } from 'src/constants';
+import { GITHUB_REPO, DEMOS } from 'src/constants';
 
 export const getGithubUrl = (path: string) => `${GITHUB_REPO}/tree/main${path}`;
 
@@ -24,4 +24,16 @@ export const generateMetadata = ({ title, seoPreview }: { title?: string; seoPre
   };
 
   return metadata;
-}
+};
+
+export const generateDemoMetadata = (slug: string) => {
+  const demo = DEMOS.find((d) => d.slug === slug);
+  if (!demo) {
+    return generateMetadata({});
+  }
+
+  return generateMetadata({
+    title: `${demo.title}${demo.tags?.includes('tutorial') ? ' Tutorial' : ''}`,
+    seoPreview: demo.seoPreview,
+  });
+};

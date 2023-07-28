@@ -1,16 +1,11 @@
-import { generateMetadata } from 'src/utils';
+import { generateDemoMetadata } from 'src/utils';
 import { DemoContainer } from 'src/components';
-import { DEMOS } from 'src/constants';
 import Demo from './demo';
 import Texterino from './texterino';
 
 const slug = 'form-switch';
-const demo = DEMOS.find((d) => d.slug === slug);
 
-export const metadata = generateMetadata({
-  title: demo?.title,
-  seoPreview: demo?.seoPreview,
-});
+export const metadata = generateDemoMetadata(slug);
 
 const FormSwitchPage = () => {
   return (
@@ -18,7 +13,7 @@ const FormSwitchPage = () => {
       <DemoContainer>
         <p>Click on SIGN UP button to trigger animation</p>
         <Demo />
-        <p>And don&apos;t forget to check the tutorial below!</p>
+        <DemoContainer.Callout />
       </DemoContainer>
       <Texterino slug={slug} />
     </>

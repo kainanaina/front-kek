@@ -95,7 +95,7 @@ export default function Text({ slug }: Props) {
   return (
     <Texterino>
       <Texterino.Disclaimers />
-      <h1>Form Switch Animation Demo</h1>
+      <h1>Form Switch Animation Tutorial</h1>
 
       <h2>What, Why, How?</h2>
       <p>

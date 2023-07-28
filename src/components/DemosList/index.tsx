@@ -8,6 +8,10 @@ export default function DemosList() {
       <h1 className={s.heading}>Demos</h1>
       <div className={s.demos}>
         {DEMOS.map((demo) => {
+          if (demo.hidden) {
+            return null;
+          }
+
           return (
             <Link href={`/demos/${demo.slug}`} key={demo.slug}>
               <div className={s.demo}>
@@ -17,7 +21,16 @@ export default function DemosList() {
                     <source src={demo.preview} type="video/mp4" />
                   </video>
                 </div>
-                <h2>{demo.title}</h2>
+                <h2 className={s.demoTitle}>{demo.title}</h2>
+                {!!demo.tags?.length && (
+                  <div className={s.demoTags}>
+                    {demo.tags.map((tag) => (
+                      <div key={tag} className={s.demoTag}>
+                        {tag}
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             </Link>
           );
