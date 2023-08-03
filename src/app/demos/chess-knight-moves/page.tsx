@@ -1,16 +1,14 @@
 import { generateDemoMetadata } from 'src/utils';
 import Demo from './demo';
-import Texterino from './texterino';
 
-const slug = 'twitter-x-logo';
+const slug = 'chess-knight-moves';
 
 export const metadata = generateDemoMetadata(slug);
 
-export default function TwitterXLogoPage() {
+export default function ChessKnightMovesPage() {
   return (
     <>
       <Demo />
-      <Texterino slug={slug} />
     </>
   );
 }

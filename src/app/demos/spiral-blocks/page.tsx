@@ -1,4 +1,3 @@
-import { DemoContainer } from 'src/components';
 import { generateDemoMetadata } from 'src/utils';
 import Demo from './demo';
 import Texterino from './texterino';
@@ -10,9 +9,7 @@ export const metadata = generateDemoMetadata(slug);
 export default function SpiralBlocksPage() {
   return (
     <>
-      <DemoContainer>
-        <Demo />
-      </DemoContainer>
+      <Demo />
       <Texterino slug={slug} />
     </>
   );

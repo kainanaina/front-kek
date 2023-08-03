@@ -1,3 +1,4 @@
+import { DemoContainer } from 'src/components';
 import './styles.scss';
 
 enum Direction {
@@ -34,7 +35,7 @@ interface Props {
     | [VerticalDirection, HorizontalDirection];
 }
 
-export default function SpiralBlocks({
+function SpiralBlocks({
   gridSize = 11,
   boxSize = 50,
   animationTime = 0.3,
@@ -140,4 +141,8 @@ function getTransformOrigin(pos: DirectionPair) {
   return `${getTransformOriginForValue(pos[0])} ${getTransformOriginForValue(
     pos[1]
   )}`;
+}
+
+export default function Demo() {
+  return <DemoContainer component={SpiralBlocks} />;
 }

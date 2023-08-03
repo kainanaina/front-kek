@@ -8,6 +8,7 @@ import {
 } from '@tabler/icons-react';
 //@ts-ignore
 import { interpolate } from 'flubber';
+import { DemoContainer } from 'src/components';
 import './styles.scss';
 
 const logoSize = 270;
@@ -156,13 +157,23 @@ function TwitterXLogoDemo({ onReset }: Props) {
 }
 
 // we are using this wrapper to reset our component state and rerun useEffect by changing the key prop
-export default function ResetWrapper() {
+function ResetWrapper() {
   const [refreshMs, setRefreshMs] = useState(0);
 
   return (
     <TwitterXLogoDemo
       key={refreshMs}
       onReset={() => setRefreshMs(Date.now())} // using timestamp is probably the most braindead and bulletproof way to get new unique key each time
+    />
+  );
+}
+
+export default function Demo() {
+  return (
+    <DemoContainer
+      component={ResetWrapper}
+      afterDemo={<DemoContainer.Callout style={{ color: '#fff' }} />}
+      style={{ overflow: 'hidden' }}
     />
   );
 }

@@ -6,8 +6,8 @@
     "prettier" // Add "prettier" last. This will turn off eslint rules conflicting with prettier. This is not what will format our code.
   ],
   "rules": {
+    "@next/next/no-img-element": "off",
     "@typescript-eslint/no-unused-vars": "error",
-    "@typescript-eslint/no-explicit-any": "error",
     "@typescript-eslint/ban-ts-comment": "warn"
   }
 }

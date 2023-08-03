@@ -100,6 +100,7 @@ input, button {
   --bw: var(--border-width, 3px);
 
   z-index: 2;
+  overflow: hidden;
   position: absolute;
   inset: 0;
   clip-path: polygon(
@@ -125,7 +126,11 @@ input, button {
     width: 150%;
     padding-bottom: 150%;
     transform: translate(-50%, -50%);
-    background: conic-gradient(from 270deg, #ff4800 10%, #dfd902 35%, #20dc68, #0092f4, #da54d8 72% 75%, #ff4800 95%);
+    background: conic-gradient(#ff4800, #dfd902, #20dc68, #0092f4, #da54d8);
     animation: rotateBtnBg 2s linear infinite;
+  }
+
+  &.alt-2:before {
+    background: conic-gradient(#f56127, #a6ff27, #1de1f5, #2e3bff, #ff225d);
   }
 }

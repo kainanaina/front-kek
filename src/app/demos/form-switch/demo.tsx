@@ -1,9 +1,10 @@
 'use client';
 import { useState } from 'react';
 import cn from 'classnames';
+import { DemoContainer } from 'src/components';
 import './styles.scss';
 
-export default function Demo() {
+function FormSwitchDemo() {
   const [switched, setSwitched] = useState(false);
   return (
     <div className="local-container">
@@ -86,5 +87,15 @@ function FakeForm({ heading, fields, submitLabel }: FakeFormProps) {
         {submitLabel}
       </button>
     </form>
+  );
+}
+
+export default function Demo() {
+  return (
+    <DemoContainer
+      component={FormSwitchDemo}
+      beforeDemo={<p>Click on SIGN UP button to trigger animation</p>}
+      afterDemo={<DemoContainer.Callout />}
+    />
   );
 }

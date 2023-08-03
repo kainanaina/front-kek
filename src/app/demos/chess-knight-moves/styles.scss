@@ -1,0 +1,63 @@
+.chess {
+  $parentRef: &;
+
+  --box-size: 100px;
+  --x-size: 5;
+  --y-size: 5;
+  --knight-x: 2;
+  --knight-y: 2;
+  --step-at: 0.3s;
+
+  display: flex;
+  width: calc(var(--box-size) * var(--x-size));
+  height: calc(var(--box-size) * var(--y-size));
+
+  @mixin isMoving {
+    #{$parentRef}.s--moving & {
+      @content;
+    }
+  }
+
+  &__knight {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: var(--box-size);
+    height: var(--box-size);
+    will-change: transform, opacity;
+    transition: transform var(--step-at), opacity 0.3s;
+    transform: translate(
+      calc(var(--knight-x) * var(--box-size)),
+      calc(var(--knight-y) * var(--box-size))
+    );
+    opacity: 0.5;
+
+    @include isMoving {
+      opacity: 1;
+    }
+  }
+
+  &__box {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: var(--box-size);
+    height: var(--box-size);
+    display: 'flex';
+    border: 1px solid #333;
+    font-size: 20px;
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+    p {
+      opacity: 0;
+      will-change: opacity;
+      animation: fadeIn var(--step-at) calc(var(--step-at) * calc(var(--move-index) + 1)) forwards;
+    }
+  }
+}

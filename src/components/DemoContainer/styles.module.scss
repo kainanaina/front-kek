@@ -1,6 +1,13 @@
 .demoContainer {
   --vert-gap: 0px;
 
+  overflow: hidden;
+  width: 1600px;
+  max-width: 100%;
+  margin: var(--vert-gap) auto;
+}
+
+.demoContent {
   overflow-y: auto;
   overflow-x: hidden;
   display: flex;
@@ -8,12 +15,112 @@
   align-items: center;
   flex-direction: column;
   gap: 20px;
-  width: 1600px;
-  max-width: 100%;
+  width: 100%;
   height: calc(100vh - var(--header-height) - calc(var(--vert-gap) * 2));
-  min-height: 800px;
+  min-height: 640px;
   padding: 20px;
-  margin: var(--vert-gap) auto;
   background: var(--color-gray);
   border: 1px solid #ccc;
+
+  @media (max-width: 480px) {
+    min-height: 800px;
+  }
+}
+
+.demoError {
+  text-align: center;
+
+  button {
+    margin-top: 10px;
+    padding: 10px 16px;
+    font-size: 20px;
+  }
+}
+
+.demoParams {
+  z-index: 1000;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  will-change: transform;
+  transition: transform 0.3s;
+  transform: translateY(100%);
+
+  &:before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    box-shadow: 2px -5px 5px rgba(0,0,0,0.2);
+    opacity: 0;
+    transition: opacity 0.3s;
+    will-change: opacity;
+  }
+
+  &._visible {
+    transform: translateY(0);
+
+    &:before {
+      opacity: 1;
+    }
+  }
+
+  &Inner {
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 100%;
+    max-height: 200px;
+    padding: 20px;
+    border: 2px solid rgba(0,0,0,0.2);
+    background: #fff;
+  }
+
+  &Content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    width: 1000px;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  &Inputs {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    label {
+      
+      p {
+        margin-bottom: 4px;
+        font-size: 14px;
+      }
+    }
+
+    input {
+      width: 100%;
+      padding: 10px 10px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+  }
+
+  &Submit {
+    flex-shrink: 0;
+    padding: 10px 16px;
+    font-size: 20px;
+    cursor: pointer;
+  }
+
+  &Toggle {
+    position: absolute;
+    bottom: 100%;
+    right: 30px;
+    padding: 8px 16px;
+    font-size: 20px;
+    background: #fff;
+    cursor: pointer;
+  }
 }

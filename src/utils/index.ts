@@ -37,3 +37,23 @@ export const generateDemoMetadata = (slug: string) => {
     seoPreview: demo.seoPreview,
   });
 };
+
+export const rangeFromZero = (numOfItems: number): number[] => {
+  return Array.from(Array(numOfItems).keys());
+};
+
+export const preventNonNumbers = (allowDecimals = false) => (e: React.KeyboardEvent<HTMLInputElement>) => {
+  if (e.key === 'Enter') {
+    return;
+  }
+
+  const { value } = e.currentTarget;
+
+  const regex = (allowDecimals && value?.length && !value.includes('.'))
+    ? /[0-9]|\./
+    : /[0-9]/;
+
+  if (!regex.test(e.key)) {
+    e.preventDefault();
+  }
+};
