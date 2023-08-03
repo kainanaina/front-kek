@@ -1,3 +1,4 @@
+'use client';
 import { DemoContainer } from 'src/components';
 import './styles.scss';
 
