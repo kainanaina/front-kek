@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import cn from 'classnames';
 import { preventNonNumbers } from 'src/utils';
@@ -24,6 +24,8 @@ function DemoContainer({
   afterDemo,
   initialProps = {},
   paramsConfig = {},
+  paramsAutoopenDelay = 0,
+  paramsInitialVisible = false,
   style,
 }: {
   component: React.ComponentType<PropsType>;
@@ -31,6 +33,8 @@ function DemoContainer({
   afterDemo?: React.ReactNode;
   initialProps?: PropsType;
   paramsConfig?: ParamsConfigType;
+  paramsAutoopenDelay?: number;
+  paramsInitialVisible?: boolean;
   style?: React.CSSProperties;
 }) {
   const [props, setProps] = useState(initialProps);
@@ -76,6 +80,8 @@ function DemoContainer({
           key={`params-${paramsResetKey}`}
           initialProps={initialProps}
           paramsConfig={paramsConfig}
+          paramsAutoopenDelay={paramsAutoopenDelay}
+          paramsInitialVisible={paramsInitialVisible}
           onSubmit={handleChangeProps}
         />
       )}
@@ -86,14 +92,34 @@ function DemoContainer({
 function DemoParams({
   initialProps,
   paramsConfig,
+  paramsAutoopenDelay = 0,
+  paramsInitialVisible = false,
   onSubmit,
 }: {
   initialProps: PropsType;
   paramsConfig?: ParamsConfigType;
+  paramsAutoopenDelay?: number;
+  paramsInitialVisible?: boolean;
   onSubmit: (props: PropsType) => void;
 }) {
   const [formState, setFormState] = useState(initialProps);
-  const [paramsVisible, setParamsVisible] = useState(false);
+  const [paramsVisible, setParamsVisible] = useState(paramsInitialVisible);
+
+  const timeoutRef = useRef<NodeJS.Timeout>();
+
+  useEffect(() => {
+    if (paramsAutoopenDelay) {
+      timeoutRef.current = setTimeout(() => {
+        setParamsVisible(true);
+      }, paramsAutoopenDelay);
+    }
+
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
 
   const getBoundryValue = (key?: number | string) => {
     if (typeof key === 'number') {

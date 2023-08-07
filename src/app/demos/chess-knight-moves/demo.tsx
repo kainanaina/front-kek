@@ -31,7 +31,9 @@ function ChessKnightMovesDemo({
   const intervalRef = useRef<NodeJS.Timeout>();
 
   const moveKnight = (solution: Solution) => {
-    let index = 1;
+    let index = 1; // initial knight position is 0, so in animation we need to start at 1
+
+    // initial interval that changes knight position every stepAnimationTime seconds until it reaches the end
     intervalRef.current = setInterval(() => {
       const [x, y] = solution[index].split('-').map(Number);
 
@@ -47,6 +49,7 @@ function ChessKnightMovesDemo({
     }, stepAnimationTime * 1000);
   };
 
+  // run once on mount, which also reruns on component key change reset
   useEffect(() => {
     const solution = solveMoves(xSize, ySize, knightX, knightY);
 
@@ -56,7 +59,7 @@ function ChessKnightMovesDemo({
 
     return () => {
       if (intervalRef.current) {
-        clearInterval(intervalRef.current);
+        clearInterval(intervalRef.current); // clear interval on component unmount in case it's still running. Also clear on key change reset
       }
     };
   }, []);
@@ -77,36 +80,34 @@ function ChessKnightMovesDemo({
         alt="Chess Knight"
         className="chess__knight"
       />
-      {rangeFromZero(xSize).map((i) => (
-        <Fragment key={i}>
-          {rangeFromZero(ySize).map((j) => {
-            const position = stringifyPosition(i, j);
-            const moveIndex = moves.findIndex((move) => position === move);
+      {rangeFromZero(xSize * ySize).map((i) => {
+        const x = i % xSize;
+        const y = Math.floor(i / xSize);
+        const position = stringifyPosition(x, y);
+        const moveIndex = moves.findIndex((move) => position === move);
 
-            return (
-              <div
-                key={`${i}-${j}`}
-                className="chess__box"
-                style={{
-                  left: i * boxSize,
-                  top: j * boxSize,
-                }}
-              >
-                {moveIndex !== -1 && (
-                  <p
-                    style={{ '--move-index': moveIndex } as React.CSSProperties}
-                  >
-                    {moveIndex}
-                  </p>
-                )}
-              </div>
-            );
-          })}
-        </Fragment>
-      ))}
+        return (
+          <div
+            key={`${x}-${y}`}
+            className="chess__box"
+            style={{
+              left: x * boxSize,
+              top: y * boxSize,
+            }}
+          >
+            {moveIndex !== -1 && (
+              <p style={{ '--move-index': moveIndex } as React.CSSProperties}>
+                {moveIndex}
+              </p>
+            )}
+          </div>
+        );
+      })}
     </div>
   );
 }
+
+// not related to core demo code
 
 const initialProps: Props = {
   boxSize: 100,
@@ -114,7 +115,7 @@ const initialProps: Props = {
   ySize: 6,
   startX: 3,
   startY: 3,
-  stepAnimationTime: 0.3,
+  stepAnimationTime: 0.2,
 };
 
 export default function Demo() {
@@ -136,6 +137,7 @@ export default function Demo() {
             allowDecimals: true,
           },
         }}
+        paramsAutoopenDelay={7400}
       ></DemoContainer>
     </>
   );
