@@ -2,7 +2,7 @@ import { rangeFromZero } from "src/utils";
 
 type PossibleMoves = number[][];
 
-// gets all possible moves for a given cell considering the board constraints
+// gets all possible moves for a given cell while considering the board constraints
 function getPossibleMoves(
   h: number,
   v: number,
@@ -55,10 +55,10 @@ function getPossibleMoves(
   return result;
 };
 
-/* given possible moves for particular cell, it filters out moves that are already taken
-and sorts the remaining moves by the number of possible moves each target cell has
+/* given possible moves for a particular cell, it filters out moves that are already taken
+and sorts in ascending order the remaining moves by the number of possible moves each target cell has
 this allows us to minimize the amount of possible "ophan cells" when we are running the solver
-without it solver pretty much dies on 8x8 board most of the time, with it it can do 10x10 and even more sometimes
+without it solver pretty much dies on 8x8 board most of the time, with it we can do 10x10 and even more sometimes
 */
 function getFilteredMoves(
   moves: PossibleMoves,
@@ -116,7 +116,7 @@ export function solveMoves(
     let lastAlternativeMove;
 
     /* if there are no possible moves for the current cell,
-    we are removing last item from pastAlternativeMoves and assigning it to lastAlternativeMove
+    we are removing the last item from pastAlternativeMoves and assigning it to lastAlternativeMove
     */
     while (!move && (lastAlternativeMove = pastAlternativeMoves.pop())) {
       takenMoves.pop(); // removing last taken move from our solution, since it was a dead end
@@ -132,7 +132,7 @@ export function solveMoves(
       }
     }
 
-    // if we arrive to this point and move is undefined, it means that we have no more possible moves
+    // if we arrive to this point and "move" is undefined, it means that we have no more possible moves
     if (!move) {
       console.log('no solution');
 

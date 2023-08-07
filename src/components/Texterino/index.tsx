@@ -27,14 +27,15 @@ Texterino.Disclaimers = function Disclaimers() {
           </AccordionSummary>
           <AccordionDetails>
             If this was a job project, then I would be using something like
-            tailwind, or css-in-js tied to specific UI library (like Mantine),
+            tailwind, or css-in-js tied to a specific UI library (like Mantine),
             or at the very least SCSS modules. But since it&apos;s a personal
             website, which is also meant to be a source of educational
             tutorials, I decided to go with SCSS BEM classes, since they are
             100% compatible with codepen, which makes changing/copypasting code
-            very simple. Also SCSS got broadest appeal, since it doesn&apos;t
-            requires any specific library knowledge to read the code. But I am
-            not promising that my styles will be easy to understand :)
+            very simple. Also, SCSS got the broadest appeal, since it
+            doesn&apos;t require any specific library knowledge to read the
+            code. But I am not promising that my styles will be easy to
+            understand :)
           </AccordionDetails>
         </Accordion>
 
@@ -45,7 +46,7 @@ Texterino.Disclaimers = function Disclaimers() {
           <AccordionDetails>
             This website is meant to showcase various experiments with fun
             animations and relatively new CSS features, but it is not intended
-            to be a sourse of production-ready components with mobile
+            to be a source of production-ready components with mobile
             responsiveness and proper accessibility. If you can easily
             copy-paste some of these components into your app, then I am happy
             for you, but generally don&apos;t expect same level of DX/UX polish
@@ -60,8 +61,8 @@ Texterino.Disclaimers = function Disclaimers() {
           <AccordionDetails>
             At my job I try to evade heavily commenting my code, but since this
             website is meant to be the source of learning materials about UI
-            front-end, I decided to add variety of comments where it might seem
-            useful.
+            front-end, I decided to add a variety of comments where it might
+            seem useful.
           </AccordionDetails>
         </Accordion>
       </AccordionDetails>
@@ -72,26 +73,26 @@ Texterino.Disclaimers = function Disclaimers() {
 interface CodeExamplesProps {
   slug: string;
   codepenId?: string;
+  links?: { filename: string; label?: string }[];
 }
 
-function CodeExamples({ slug, codepenId }: CodeExamplesProps) {
+function CodeExamples({ slug, codepenId, links }: CodeExamplesProps) {
   return (
     <>
       <h2>Show me the code</h2>
       <p>
-        I&apos;m still working on proper code embeddings, so for now I will be
-        using github links and codepen as source code materials, while tutorial
-        will be mostly about general explanation behind animations and tricks.
+        Tutorials will mostly be covering a general overview of the
+        implementation with a few code embeds here and there. Full code is
+        always available on github (linked below)
+        {codepenId ? ' and codepen' : ''}.
       </p>
-      <p>
-        I will try to heavily comment my code (mainly styles) to compensate for
-        my lack of tutorial skills.
-      </p>
-      <p>
-        Also, if reading SCSS code with parent references nesting is too much
-        trouble, you can always check compiled CSS in codepen to see the final
-        classes and styles.
-      </p>
+      {codepenId && (
+        <p>
+          Also, if reading SCSS code with parent references nesting is too much
+          trouble, you can always check compiled CSS in codepen to see the final
+          classes and styles.
+        </p>
+      )}
 
       <p>
         <CodeExamples.DemoCodeLink slug={slug}>
@@ -103,6 +104,14 @@ function CodeExamples({ slug, codepenId }: CodeExamplesProps) {
           styles.scss
         </CodeExamples.StylesLink>
       </p>
+
+      {links?.map(({ filename, label }) => (
+        <p key={filename}>
+          <a href={`${getRouteBase(slug)}${filename}`} target="_blank">
+            {label || filename}
+          </a>
+        </p>
+      ))}
 
       {codepenId && (
         <iframe
@@ -119,15 +128,16 @@ function CodeExamples({ slug, codepenId }: CodeExamplesProps) {
   );
 }
 
+function getRouteBase(demoSlug: string) {
+  return `https://github.com/kainanaina/front-kek/blob/main/src/app/demos/${demoSlug}/`;
+}
+
 CodeExamples.DemoCodeLink = function DemoCodeLink({
   children,
   slug,
 }: React.PropsWithChildren<CodeExamplesProps>) {
   return (
-    <a
-      href={`https://github.com/kainanaina/front-kek/blob/main/src/app/demos/${slug}/demo.tsx`}
-      target="_blank"
-    >
+    <a href={`${getRouteBase(slug)}demo.tsx`} target="_blank">
       {children}
     </a>
   );
@@ -138,10 +148,7 @@ CodeExamples.StylesLink = function StylesLink({
   slug,
 }: React.PropsWithChildren<CodeExamplesProps>) {
   return (
-    <a
-      href={`https://github.com/kainanaina/front-kek/blob/main/src/app/demos/${slug}/styles.scss`}
-      target="_blank"
-    >
+    <a href={`${getRouteBase(slug)}styles.scss`} target="_blank">
       {children}
     </a>
   );

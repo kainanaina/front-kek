@@ -17,7 +17,7 @@ export interface Props {
 }
 
 function ChessKnightMovesDemo({
-  boxSize = 100,
+  boxSize = 80,
   xSize = 5,
   ySize = 5,
   startX = 3,
@@ -28,6 +28,7 @@ function ChessKnightMovesDemo({
   const [moves, setMoves] = useState<Solution>([]);
   const [knightX, setKnightX] = useState(startX - 1);
   const [knightY, setKnightY] = useState(startY - 1);
+  const startDelayRef = useRef<NodeJS.Timeout>();
   const intervalRef = useRef<NodeJS.Timeout>();
 
   const moveKnight = (solution: Solution) => {
@@ -53,13 +54,19 @@ function ChessKnightMovesDemo({
   useEffect(() => {
     const solution = solveMoves(xSize, ySize, knightX, knightY);
 
-    setIsMoving(true);
-    setMoves(solution);
-    moveKnight(solution);
+    startDelayRef.current = setTimeout(() => {
+      setIsMoving(true);
+      setMoves(solution);
+      moveKnight(solution);
+    }, 1000);
 
+    // clear timeouts/intervals on component unmount in case it's still running. Also clear on key change reset
     return () => {
+      if (startDelayRef.current) {
+        clearTimeout(startDelayRef.current);
+      }
       if (intervalRef.current) {
-        clearInterval(intervalRef.current); // clear interval on component unmount in case it's still running. Also clear on key change reset
+        clearInterval(intervalRef.current);
       }
     };
   }, []);
@@ -103,14 +110,42 @@ function ChessKnightMovesDemo({
           </div>
         );
       })}
+      {rangeFromZero(xSize + 1).map((i) => (
+        <div
+          key={i}
+          className="chess__line chess__line--y"
+          style={
+            {
+              '--x': i,
+              '--delay': getBorderDelayIndex(i, xSize),
+            } as React.CSSProperties
+          }
+        />
+      ))}
+      {rangeFromZero(ySize + 1).map((i) => (
+        <div
+          key={i}
+          className="chess__line chess__line--x"
+          style={
+            {
+              '--y': i,
+              '--delay': getBorderDelayIndex(i, ySize),
+            } as React.CSSProperties
+          }
+        />
+      ))}
     </div>
   );
+}
+
+function getBorderDelayIndex(index: number, size: number) {
+  return Math.abs(Math.round(size) / 2 - index);
 }
 
 // not related to core demo code
 
 const initialProps: Props = {
-  boxSize: 100,
+  boxSize: 60,
   xSize: 6,
   ySize: 6,
   startX: 3,
@@ -137,8 +172,8 @@ export default function Demo() {
             allowDecimals: true,
           },
         }}
-        paramsAutoopenDelay={7400}
-      ></DemoContainer>
+        paramsAutoopenDelay={8400}
+      />
     </>
   );
 }
