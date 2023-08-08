@@ -143,7 +143,7 @@
     }
 
     @include isMorphing {
-      transition: opacity var(--elon-appearence-at) var(--elon-appearence-delay);
+      transition: opacity var(--elon-appearance-at) var(--elon-appearance-delay);
       opacity: 1;
     }
   }
@@ -183,7 +183,7 @@
     transform: scale(0);
 
     @include isMorphing {
-      transition: transform var(--doge-appearence-at) var(--doge-appearence-delay) cubic-bezier(0.13, 0.9, 0.4, 1.6);
+      transition: transform var(--doge-appearance-at) var(--doge-appearance-delay) cubic-bezier(0.13, 0.9, 0.4, 1.6);
       transform: scale(1);
     }
   }
@@ -201,7 +201,7 @@
     cursor: pointer;
 
     @include isMorphing {
-      transition: transform var(--reset-appearence-at) var(--reset-appearence-delay) cubic-bezier(0.13, 0.9, 0.4, 1.6);
+      transition: transform var(--reset-appearance-at) var(--reset-appearance-delay) cubic-bezier(0.13, 0.9, 0.4, 1.6);
       transform: scale(1);
       pointer-events: auto;
     }

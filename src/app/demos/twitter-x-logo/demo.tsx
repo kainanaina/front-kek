@@ -18,7 +18,7 @@ const targetPath = 'M0,0 6,0 24,24 18,24Z';
 // this is our single source of truth for chain of animations timings, values are in seconds
 const animations = [
   { name: 'elon-waiting', duration: 0.5 },
-  { name: 'elon-appearence', duration: 1 },
+  { name: 'elon-appearance', duration: 1 },
   { name: 'twitter-reaction-waiting', duration: 0.3 },
   { name: 'twitter-reaction', duration: 0.7 },
   { name: 'twitter-shaking', duration: 1.4 },
@@ -26,8 +26,8 @@ const animations = [
   { name: 'logo-fill', duration: 0.1 },
   { name: 'logo-morphing', duration: 0.2 }, // this step combines black background circle expansion and twitter logo morphing with stroke color change
   { name: 'x-part-2', duration: 0.6 },
-  { name: 'doge-appearence', duration: 0.3 },
-  { name: 'reset-appearence', duration: 0.3 },
+  { name: 'doge-appearance', duration: 0.3 },
+  { name: 'reset-appearance', duration: 0.3 },
 ];
 
 // this map also contains delays for each animation, which makes our css transitions code very trivial
@@ -104,7 +104,7 @@ function TwitterXLogoDemo({ onReset }: Props) {
     '--logo-size': `${logoSize}px`,
     ...Object.entries(animationsWithDelaysMap).reduce(
       (acc, [name, duration]) => {
-        // the final result is something like { '--doge-appearence-at': '0.3s', '--doge-appearence-delay': '1.5s' }
+        // the final result is something like { '--doge-appearance-at': '0.3s', '--doge-appearance-delay': '1.5s' }
         acc[`--${name}${name.endsWith('delay') ? '' : '-at'}`] = `${duration}s`;
         return acc;
       },

@@ -418,7 +418,7 @@ export default function Text({ slug }: Props) {
       <ol>
         <li>
           Given x*y size of the board and starting knight position, write an
-          algorithm that tries to find all sequential non-repeating moves for
+          algorithm that tries to find all sequential non-repeating moves for a
           chess knight on a board, until you&apos;ll traverse the whole board.
         </li>
         <li>
@@ -426,7 +426,7 @@ export default function Text({ slug }: Props) {
         </li>
       </ol>
       <p>
-        The fun part is that I didn&apos;t managed to solve this problem
+        The fun part is that I didn&apos;t manage to solve this problem
         correctly in time during the interview, because I made a critical
         mistake of trying to write the code in a browser console, which led me
         to some really stupid mistakes related to array splice/pop methods (they
@@ -447,30 +447,30 @@ export default function Text({ slug }: Props) {
       <h2>Algo Solver</h2>
       <p>
         So, you are given a chess board, which is usually at least 5x5 size, and
-        knight positioned somewhere on it, and you need to move that knight
+        a knight positioned somewhere on it, and you need to move that knight
         sequentially all around the board until you&apos;ll visit all of the
         cells, without repeating any moves. And in case you forgot, knight moves
-        in L shape (2 steps in one direction and then 1 step in perpendicular
+        in L shape (2 steps in one direction and then 1 step in a perpendicular
         direction). How hard it can be?
       </p>
       <p>
-        Well, if you are interested in a ultra-nerdy coverage of this topic,
-        then you can always check this wiki page called{' '}
+        Well, if you are interested in ultra-nerdy coverage of this topic, then
+        you can always check this wiki page called{' '}
         <a href="https://en.wikipedia.org/wiki/Knight%27s_tour" target="_blank">
           Knight&apos;s tour
         </a>
         , but here I will be showing you my smooth brain solution (aka CSS guy
         tries to do algo stuff).
       </p>
-      <p>So here is the rough overview of how the algorithm solver works:</p>
+      <p>So here is a rough overview of how the algorithm solver works:</p>
       <ol>
         <li>
-          For all cells, store all possible moves than can be made from it in a
+          For all cells, store all possible moves that can be made from it in a
           mapping, so we won&apos;t need to figure out that part on every step.
         </li>
         <li>
           Create 2 arrays, one for <HL>taken moves</HL> (initially populated
-          with starting knight position), and one empty for{' '}
+          with starting knight position) and one empty for{' '}
           <HL>past alternative moves</HL>.
         </li>
         <li>
@@ -478,46 +478,46 @@ export default function Text({ slug }: Props) {
           become equal to the total size of the board.
         </li>
         <li>
-          Inside that loop get available moves for current knight position,
-          filter out already taken moves and sort remaining ones by the number
-          of available moves in ascending order.
+          Inside that loop get available moves for the current knight position,
+          filter out already taken moves and sort the remaining ones by the
+          number of available moves in ascending order.
         </li>
         <li>
-          From that sorted listed of moves, first one will become our new{' '}
-          <HL>taken move</HL>, that will go into <HL>taken moves</HL> array. It
-          will allow us to priotize cells with the highest tendency of becoming{' '}
-          <HL>orphaned cells</HL> (which boosts performance by 10-1000x
-          depending on a size of the board). Rest of the sorted moves will be
-          added to <HL>past alternative moves</HL> array.
+          From that sorted list of moves, the first one will become our new{' '}
+          <HL>taken move</HL>, which will go into the <HL>taken moves</HL>{' '}
+          array. It will allow us to prioritize cells with the highest tendency
+          of becoming <HL>orphaned cells</HL> (which boosts performance by
+          10-1000x depending on the size of the board). The rest of the sorted
+          moves will be added to the <HL>past alternative moves</HL> array.
         </li>
         <li>
-          In case of miracle, this while loop will repeat until the end and the
-          problem will solved, which returns array of <HL>taken moves</HL>. But
-          most of the time it will be hitting a dead end, and that&apos;s where
-          we&apos;ll need to add backtracking logic that involves{' '}
-          <HL>past alternative moves</HL>.
+          In case of a miracle, this while loop will repeat until the end and
+          the problem will be solved, which returns an array of{' '}
+          <HL>taken moves</HL>. But most of the time it will be hitting a dead
+          end, and that&apos;s where we&apos;ll need to add backtracking logic
+          that involves <HL>past alternative moves</HL>.
         </li>
         <li>
-          So, if we are retrieving sorted&filtered moves for current position
-          and it&apos;s empty, then we need to remove last move from{' '}
-          <HL>taken moves</HL> array and also pop (aka remove and store in
-          variable) last alternative moves from our second array. These
+          So, if we are retrieving sorted&filtered moves for the current
+          position and it&apos;s empty, then we need to remove the last move
+          from the <HL>taken moves</HL> array and also pop (aka remove and store
+          in a variable) the last alternative moves from our second array. These
           alternative moves will now become our new set of sorted&filtered
-          moves, on which we&apos;ll repeat this nested while loop, until we
-          have a move available, with which we can continue top-level while
-          loop.
+          moves, on which we&apos;ll repeat this nested while loop until
+          we&apos;ll have a move available, with which we can continue top-level
+          while loop.
         </li>
         <li>
-          In case if our nested backtracking while loop drilled all the way to
-          the top and our <HL>past alternative moves</HL> are empty and next
+          In case our nested backtracking while loop drilled all the way to the
+          top and our <HL>past alternative moves</HL> are empty and the next
           move is undefined, then it means we couldn&apos;t find a solution and
-          it&apos;s time to exit top level while loop and return{' '}
+          it&apos;s time to exit the top level while loop and return{' '}
           <HL>no solution</HL> result.
         </li>
       </ol>
 
       <p>
-        Let&apos;s go over the code. First we&apos;ll start with helper
+        Let&apos;s go over the code. First, we&apos;ll start with helper
         functions:
       </p>
 
@@ -532,9 +532,9 @@ export default function Text({ slug }: Props) {
       </pre>
 
       <p>
-        In the end we gonna receive array of positions (like{' '}
+        In the end, we gonna receive an array of positions (like{' '}
         <HL>{'["2-2", "0-1", ...]'}</HL>) from the solver, that we can use to
-        visualize the movement of chess knight on a board.
+        visualize the movement of the chess knight on a board.
       </p>
 
       <h2>React and Styles</h2>
@@ -543,19 +543,21 @@ export default function Text({ slug }: Props) {
 
       <ol>
         <li>
-          On component mount we are running <HL>useEffect</HL> which runs solver
-          once, saves result in a state and initiates animation interval with a
-          short delay.
+          On component mount, we are running <HL>useEffect</HL> which runs the
+          solver once, saves the result in a state, and initiates animation
+          interval with a short delay.
         </li>
         <li>
           Solution saved in state allows us to render the chess board and
           position the knight on it. Cells borders are drawn as separate lines
-          (so I could animate their appearence).
+          (so I could animate their appearance).
         </li>
         <li>
           Once animation interval starts, it updates knight position on every
           step, until it reached the end of the solution, which also stops the
-          interval.
+          interval. Knight element got <HL>transition: transform</HL> assigned
+          to it, so any change to position CSS properties automatically triggers
+          animation that moves knight to the new position.
         </li>
         <li>
           If component unmounts (which can happen on page navigation or
@@ -565,7 +567,7 @@ export default function Text({ slug }: Props) {
         <li>
           Updating component params from <HL>DemoContainer</HL> changes its key,
           which <HL>resets</HL> component state and reruns <HL>useEffect</HL>,
-          which also includes rerunning of all appearence CSS animations.
+          which also includes rerunning of all appearance CSS animations.
         </li>
       </ol>
 
