@@ -17,12 +17,12 @@ export interface Props {
 }
 
 function ChessKnightMovesDemo({
-  boxSize = 80,
-  xSize = 5,
-  ySize = 5,
+  boxSize = 60,
+  xSize = 6,
+  ySize = 6,
   startX = 3,
   startY = 3,
-  stepAnimationTime = 0.3,
+  stepAnimationTime = 0.2,
 }: Props) {
   const [isMoving, setIsMoving] = useState(false);
   const [moves, setMoves] = useState<Solution>([]);
@@ -96,7 +96,7 @@ function ChessKnightMovesDemo({
 
         return (
           <div
-            key={`${x}-${y}`}
+            key={position}
             className="chess__box"
             style={{
               left: x * boxSize,

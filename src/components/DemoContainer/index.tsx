@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import cn from 'classnames';
 import { preventNonNumbers } from 'src/utils';
-import s from './styles.module.scss';
+import './styles.scss';
 
 type PropsType = Record<string, number>;
 
@@ -51,12 +51,12 @@ function DemoContainer({
   };
 
   return (
-    <div className={s.demoContainer}>
-      <div className={s.demoContent} style={style}>
+    <div className="demo-container">
+      <div className="demo-content" style={style}>
         <ErrorBoundary
           key={resetKey}
           fallback={
-            <div className={s.demoError}>
+            <div className="demo-error">
               <p>
                 Oops, seems that demo couldn&apos;t handle provided params and
                 crashed!
@@ -80,7 +80,7 @@ function DemoContainer({
       </div>
 
       {withCallout && (
-        <p className={s.demoCallout} style={calloutStyle}>
+        <p className="demo-callout" style={calloutStyle}>
           Don&apos;t forget to check the tutorial below!
         </p>
       )}
@@ -173,11 +173,11 @@ function DemoParams({
         e.preventDefault();
         handleSubmit();
       }}
-      className={cn(s.demoParams, { [s._visible]: paramsVisible })}
+      className={cn('demo-params', { 's--visible': paramsVisible })}
     >
-      <div className={s.demoParamsInner}>
-        <div className={s.demoParamsContent}>
-          <div className={s.demoParamsInputs}>
+      <div className="demo-params__inner">
+        <div className="demo-params__content">
+          <div className="demo-params__inputs">
             {Object.keys(formState).map((key) => {
               const {
                 label,
@@ -210,7 +210,7 @@ function DemoParams({
             })}
           </div>
 
-          <button type="submit" className={s.demoParamsSubmit}>
+          <button type="submit" className="demo-params__submit">
             <span className="animated-border alt-2" />
             Submit
           </button>
@@ -219,7 +219,7 @@ function DemoParams({
 
       <button
         type="button"
-        className={s.demoParamsToggle}
+        className="demo-params__toggle"
         onClick={() => setParamsVisible(!paramsVisible)}
       >
         <span className="animated-border" />

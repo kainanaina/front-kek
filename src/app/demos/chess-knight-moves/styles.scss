@@ -1,12 +1,13 @@
 .chess {
   $parentRef: &;
 
-  --box-size: 80px;
-  --x-size: 5;
-  --y-size: 5;
-  --knight-x: 2;
-  --knight-y: 2;
-  --step-at: 0.3s;
+  // default values, overridden by react component
+  --box-size: 60px;
+  --x-size: 6;
+  --y-size: 6;
+  --knight-x: 3;
+  --knight-y: 3;
+  --step-at: 0.2s;
 
   display: flex;
   flex-shrink: 0;

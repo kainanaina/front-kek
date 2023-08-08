@@ -85,6 +85,7 @@ const getCellsMoves = (h: number, v: number) => {
   }, {} as Record<string, PossibleMoves>);
 };
 
+// this simplifies usage of object mapping, where every cell can be represented as x-y string
 export function stringifyPosition(x: number, y: number) {
   return `${x}-${y}`;
 }
@@ -104,31 +105,29 @@ export function solveMoves(
   const takenMoves = [stringifyPosition(initialX, initialY)];
   const pastAlternativeMoves: PossibleMoves[] = [];
   const numOfCells = h * v;
-  let x = initialX;
-  let y = initialY;
+
+  let move = [initialX, initialY];
 
   while (takenMoves.length < numOfCells) {
-    const position = stringifyPosition(x, y);
+    const position = stringifyPosition(move[0], move[1]);
 
     const possibleMoves = getFilteredMoves(cellsMoves[position], takenMoves, cellsMoves);
 
-    let [move, ...restMoves] = possibleMoves;
-    let lastAlternativeMove;
+    move = possibleMoves[0];
+    let restMoves = possibleMoves.slice(1);
+    let lastAlternativeMoves;
 
     /* if there are no possible moves for the current cell,
-    we are removing the last item from pastAlternativeMoves and assigning it to lastAlternativeMove
+    we are removing the last item from pastAlternativeMoves and assigning it to lastAlternativeMoves
     */
-    while (!move && (lastAlternativeMove = pastAlternativeMoves.pop())) {
+    while (!move && (lastAlternativeMoves = pastAlternativeMoves.pop())) {
       takenMoves.pop(); // removing last taken move from our solution, since it was a dead end
 
-      // treat lastAlternativeMove as a new destination cell and try to find possible moves for it
-      const lastAltMoves = getFilteredMoves(lastAlternativeMove, takenMoves, cellsMoves);
-
-      // if lastAlternativeMove has possible moves, then we are continuing our top-level while loop as usual
+      // if lastAlternativeMoves has possible moves, then we are continuing our top-level while loop as usual
       // but if it doesn't, this while loop with pop repeats again and again until we can find an alternative cell in history with possible moves
-      if (lastAltMoves.length) {
-        // wrapping it in parentheses allows us to assign it to let variables with destructuring, without creating new intermediate let variables
-        ([move, ...restMoves] = lastAltMoves);
+      if (lastAlternativeMoves?.length) {
+        // wrapping it in parentheses allows us to assign it to let variables with destructuring, without needing to create new intermediate let variables
+        ([move, ...restMoves] = lastAlternativeMoves);
       }
     }
 
@@ -141,9 +140,7 @@ export function solveMoves(
       });
     }
 
-    x = move[0];
-    y = move[1];
-    takenMoves.push(stringifyPosition(x, y));
+    takenMoves.push(stringifyPosition(move[0], move[1]));
     pastAlternativeMoves.push(restMoves);
   }
 

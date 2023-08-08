@@ -16,6 +16,13 @@ export const DEMOS: DemoInfo[] = [
     tags: ['tutorial', 'svg', 'sequential']
   },
   {
+    title: 'Chess Knight Moves Algorithm',
+    slug: 'chess-knight-moves',
+    preview: 'https://i.imgur.com/Q7ImnNW.mp4',
+    seoPreview: 'https://i.imgur.com/WQANzq3.png',
+    tags: ['tutorial', 'algorithm', 'sequential']
+  },
+  {
     title: 'Spiral Blocks',
     slug: 'spiral-blocks',
     preview: 'https://i.imgur.com/8uXTEri.mp4',

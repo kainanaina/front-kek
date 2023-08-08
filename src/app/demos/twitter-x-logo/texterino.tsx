@@ -335,7 +335,7 @@ export default function Text({ slug }: Props) {
       </p>
 
       <pre>
-        <code className="lang-jsx">{jsxCode}</code>
+        <code className="lang-tsx">{jsxCode}</code>
       </pre>
 
       <p>
@@ -487,7 +487,7 @@ export default function Text({ slug }: Props) {
       <h2>How reset works</h2>
 
       <pre>
-        <code className="lang-jsx">{resetCode}</code>
+        <code className="lang-tsx">{resetCode}</code>
       </pre>
 
       <h2>Additional notes:</h2>

@@ -40,6 +40,10 @@ input, button {
   font-family: inherit;
 }
 
+button {
+  cursor: pointer;
+}
+
 .container {
   width: calc(var(--container-width) + (var(--container-pad-x) * 2));
   max-width: 100%;
