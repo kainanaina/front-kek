@@ -86,15 +86,6 @@ input, button {
   }
 }
 
-.tutorial-callout {
-  z-index: 100;
-  position: absolute;
-  left: 0;
-  bottom: 20px;
-  width: 100%;
-  text-align: center;
-}
-
 .animated-border {
   // allows you to override it with higher level variable
   --bw: var(--border-width, 3px);

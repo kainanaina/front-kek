@@ -172,7 +172,8 @@ export default function Demo() {
   return (
     <DemoContainer
       component={ResetWrapper}
-      afterDemo={<DemoContainer.Callout style={{ color: '#fff' }} />}
+      calloutStyle={{ color: '#fff' }}
+      style={{ overflow: 'hidden' }}
     />
   );
 }

@@ -95,7 +95,6 @@ export default function Demo() {
     <DemoContainer
       component={FormSwitchDemo}
       beforeDemo={<p>Click on SIGN UP button to trigger animation</p>}
-      afterDemo={<DemoContainer.Callout />}
     />
   );
 }

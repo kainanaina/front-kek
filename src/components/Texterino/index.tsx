@@ -16,7 +16,12 @@ function Texterino({ children }: React.PropsWithChildren) {
 
 Texterino.Disclaimers = function Disclaimers() {
   return (
-    <Accordion sx={{ backgroundColor: 'var(--color-gray)' }}>
+    <Accordion
+      sx={{
+        backgroundColor: 'var(--color-gray)',
+        marginBottom: '20px !important',
+      }}
+    >
       <AccordionSummary>
         <h2>Disclaimers</h2>
       </AccordionSummary>
@@ -82,8 +87,8 @@ function CodeExamples({ slug, codepenId, links }: CodeExamplesProps) {
       <h2>Show me the code</h2>
       <p>
         Tutorials will mostly be covering a general overview of the
-        implementation with a few code embeds here and there. Full code is
-        always available on github (linked below)
+        implementation with a few code embeds here and there. Full code with
+        comments is always available on github (linked below)
         {codepenId ? ' and codepen' : ''}.
       </p>
       {codepenId && (

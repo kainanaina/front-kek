@@ -26,6 +26,8 @@ function DemoContainer({
   paramsConfig = {},
   paramsAutoopenDelay = 0,
   paramsInitialVisible = false,
+  withCallout = true,
+  calloutStyle,
   style,
 }: {
   component: React.ComponentType<PropsType>;
@@ -35,6 +37,8 @@ function DemoContainer({
   paramsConfig?: ParamsConfigType;
   paramsAutoopenDelay?: number;
   paramsInitialVisible?: boolean;
+  withCallout?: boolean;
+  calloutStyle?: React.CSSProperties;
   style?: React.CSSProperties;
 }) {
   const [props, setProps] = useState(initialProps);
@@ -75,6 +79,11 @@ function DemoContainer({
         </ErrorBoundary>
       </div>
 
+      {withCallout && (
+        <p className={s.demoCallout} style={calloutStyle}>
+          Don&apos;t forget to check the tutorial below!
+        </p>
+      )}
       {!!Object.keys(paramsConfig)?.length && (
         <DemoParams
           key={`params-${paramsResetKey}`}
@@ -219,17 +228,5 @@ function DemoParams({
     </form>
   );
 }
-
-DemoContainer.Callout = function DemoContainerCallout({
-  style,
-}: {
-  style?: React.CSSProperties;
-}) {
-  return (
-    <p className="tutorial-callout" style={style}>
-      Don&apos;t forget to check the tutorial below!
-    </p>
-  );
-};
 
 export default DemoContainer;

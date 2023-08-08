@@ -87,6 +87,7 @@ function ChessKnightMovesDemo({
         alt="Chess Knight"
         className="chess__knight"
       />
+      {/* render borderless chess cells */}
       {rangeFromZero(xSize * ySize).map((i) => {
         const x = i % xSize;
         const y = Math.floor(i / xSize);
@@ -110,6 +111,7 @@ function ChessKnightMovesDemo({
           </div>
         );
       })}
+      {/* render vertical board borders */}
       {rangeFromZero(xSize + 1).map((i) => (
         <div
           key={i}
@@ -122,6 +124,7 @@ function ChessKnightMovesDemo({
           }
         />
       ))}
+      {/* render horizontal board borders */}
       {rangeFromZero(ySize + 1).map((i) => (
         <div
           key={i}
@@ -138,6 +141,7 @@ function ChessKnightMovesDemo({
   );
 }
 
+// borders in the middle getting lowest delay, borders on the edges getting highest delay
 function getBorderDelayIndex(index: number, size: number) {
   return Math.abs(Math.round(size) / 2 - index);
 }
