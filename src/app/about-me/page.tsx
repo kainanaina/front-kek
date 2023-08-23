@@ -50,24 +50,12 @@ export default function AboutMePage() {
           to do like 4 pivots with various products and in the end we
           didn&apos;t made it (NGMI), so company is shutting down.
         </li>
+        <li>
+          Started at a new place at the end of August 2023, the story
+          continues...
+        </li>
       </ol>
 
-      <p>
-        I wanted to return to making demos for quite a while, and now it seems
-        like a perfect time.
-      </p>
-
-      <h2>Hire me!</h2>
-      <p>
-        I&apos;m looking for a new opportunities as Senior/Lead Frontend
-        Engineer. Please check{' '}
-        <a href={LINKEDIN_PROFILE} target="_blank">
-          my linkedin
-        </a>{' '}
-        to see the latest CV. Mostly interested in remote roles (currently
-        located in APAC region), but also can almost immediately relocate to
-        Dubai/Abu Dhabi/Riyadh. Other locations are possible too.
-      </p>
       <p>You can contact me via:</p>
       <ul>
         <li>

@@ -171,10 +171,6 @@ Texterino.Begging = function Begging() {
         </a>{' '}
         for my latest demos, tutorials and cooked takes.
       </p>
-      <p>
-        Also I&apos;m currently looking for a new job, so please check{' '}
-        <Link href="/about-me">About Me</Link> page for more info.
-      </p>
     </>
   );
 };
