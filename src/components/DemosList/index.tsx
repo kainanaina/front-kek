@@ -1,3 +1,4 @@
+'use client';
 import Link from 'next/link';
 import { DEMOS } from 'src/constants';
 import s from './styles.module.scss';

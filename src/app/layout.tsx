@@ -2,6 +2,7 @@ import { Roboto, Oswald } from 'next/font/google';
 import Link from 'next/link';
 import Script from 'next/script';
 import cn from 'classnames';
+import {} from 'next/navigation';
 import {
   IconBrandTwitterFilled,
   IconBrandGithubFilled,
